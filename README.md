@@ -110,6 +110,8 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 ![exe步骤8](https://github.com/user-attachments/assets/d33b72f8-b3ad-4779-aed9-a9cdefa4c0d3)
 
 ## 8. Copy files to your steam
+C:\Program Files (x86)\Steam\userdata\xxxxxxx\760\remote
+Then, restart your steam
 
 **For example：**
 
