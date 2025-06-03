@@ -34,7 +34,7 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 
 ## 2. Chrome Setup
 
-- Open the `chrome` folder and run `chrome.exe` (this should be the official **Chrome for Testing** version).
+- Open the `chrome` folder and run `chrome.exe` (The Chrome for Testing and ChromeDriver included in this archive were both downloaded from the official website).
  
 ![exe步骤7](https://github.com/user-attachments/assets/8c20cd48-3123-4a71-8e89-c01b8075a9a4)
 
