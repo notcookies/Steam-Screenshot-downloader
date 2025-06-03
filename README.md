@@ -4,7 +4,7 @@
    Utilizes the official Chrome for Testing and matching ChromeDriver for web automation, ensuring compatibility and stability.
 
 2. **Supports All Screenshot Categories**  
-   After logging into Steam, the tool can download all screenshots, including *Public*, *Friends Only*, and *Private*, with no restrictions.
+   After logging into Steam, the tool can download all screenshots, including *Public*, *Friends Only*, and *Private*, with no restrictions.“You can see it，you can download it.”
 
 3. **Default Download Strategy**  
    - Downloads **all** available screenshots  
