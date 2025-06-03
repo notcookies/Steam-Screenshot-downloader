@@ -39,6 +39,8 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 ![exe步骤7](https://github.com/user-attachments/assets/8c20cd48-3123-4a71-8e89-c01b8075a9a4)
 
 - Log into your **Steam account** using this Chrome.
+Make sure in "**Default Chrome user**"(The first one is Default).
+![exe步骤11](https://github.com/user-attachments/assets/90efc52e-8ede-4b44-b56b-427609ac3def)
 
 ![exe步骤12](https://github.com/user-attachments/assets/13398610-da5b-4ced-a4a1-91113f91383e)
 
