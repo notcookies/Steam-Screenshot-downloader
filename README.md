@@ -84,7 +84,8 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 - Choose the Chrome user data folder from step 2, usually located at:"C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data"
 
 
-![exe步骤1](https://github.com/user-attachments/assets/83957562-2033-453c-babb-6d258731c5d3)
+![exe步骤1](https://github.com/user-attachments/assets/0e4c5c5f-10c3-4e6d-bf41-ef107bf3052f)
+
 
 
 ## 7. Set Screenshot Page Range
