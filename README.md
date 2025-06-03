@@ -102,20 +102,18 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 
 **For example 1：**
 
-![exe步骤10](https://github.com/user-attachments/assets/d5d29944-7d71-4a2a-b0c0-6380c518ba88)
+![exe步骤18png](https://github.com/user-attachments/assets/cfb5ea2f-7669-4adf-96e5-ee502e5dc0f3)
+
 
 **For example 2：**
 
 ![exe步骤8](https://github.com/user-attachments/assets/d33b72f8-b3ad-4779-aed9-a9cdefa4c0d3)
 
+## 8. Copy files to your steam
 
-**For example 3：**
+**For example：**
 
-![exe步骤9](https://github.com/user-attachments/assets/f3f37005-92e9-403a-bc5c-8c4119299e63)
-
-
-
-
+![exe步骤17](https://github.com/user-attachments/assets/8f53846c-2ca8-4354-961a-e817d1dd46ed)
 
 
 
