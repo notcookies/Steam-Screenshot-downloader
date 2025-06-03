@@ -1,4 +1,4 @@
-# Steam Screenshot Downloader - Version Notes
+# Steam Screenshot Downloader - Version V1.0 Notes
 
 1. **Uses Official Chrome for Testing and ChromeDriver**  
    Utilizes the official Chrome for Testing and matching ChromeDriver for web automation, ensuring compatibility and stability.
