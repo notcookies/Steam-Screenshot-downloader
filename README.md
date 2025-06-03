@@ -2,6 +2,9 @@
 Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/V1.0
 
 Please refer to “How to use it.pdf” for the user manual.
+
++------------------------------+------------------------------+------------------------------+
+
 1. **Uses Official Chrome for Testing and ChromeDriver**  
    Utilizes the official Chrome for Testing and matching ChromeDriver for web automation, ensuring compatibility and stability.
 
