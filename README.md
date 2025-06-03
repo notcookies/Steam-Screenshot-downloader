@@ -101,12 +101,16 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 ✅ If everything is set up correctly, the program should run smoothly and download your screenshots!
 
 **For example 1：**
+
 ![exe步骤10](https://github.com/user-attachments/assets/d5d29944-7d71-4a2a-b0c0-6380c518ba88)
 
 **For example 2：**
+
 ![exe步骤8](https://github.com/user-attachments/assets/d33b72f8-b3ad-4779-aed9-a9cdefa4c0d3)
 
+
 **For example 3：**
+
 ![exe步骤9](https://github.com/user-attachments/assets/f3f37005-92e9-403a-bc5c-8c4119299e63)
 
 
