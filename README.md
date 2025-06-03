@@ -30,7 +30,7 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 
 - Download and unzip the **Steam-Screenshot-Downloader**.
 
-
+For examp：
 ![exe步骤6](https://github.com/user-attachments/assets/8736847d-1235-4563-8057-addd09a57cd8)
 
 
@@ -38,17 +38,17 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 
 - Open the `chrome` folder and run `chrome.exe` (The Chrome for Testing and ChromeDriver included in this archive were both downloaded from the official website).
 
-
+For examp：
 ![exe步骤7](https://github.com/user-attachments/assets/8c20cd48-3123-4a71-8e89-c01b8075a9a4)
 
 
 - Log into your **Steam account** using this Chrome.
 - Make sure in "**Default Chrome user**"(The first one is Default).
 
-
+For examp 1：
 ![exe步骤11](https://github.com/user-attachments/assets/90efc52e-8ede-4b44-b56b-427609ac3def)
 
-
+For examp 2：
 ![exe步骤12](https://github.com/user-attachments/assets/13398610-da5b-4ced-a4a1-91113f91383e)
 
 
@@ -57,7 +57,7 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 - You may need to **log in to Steam again** during this process.
 - If you can open a link like:"https://steamcommunity.com/sharedfiles/filedetails/?id=3xxxxxxxx"
 
-
+For examp：
 ![exe步骤13](https://github.com/user-attachments/assets/b5402964-6d55-48ce-bed6-6cd778976192)
 
 
@@ -83,7 +83,7 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 
 - Choose the Chrome user data folder from step 2, usually located at:"C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data"
 
-
+For examp：
 ![exe步骤1](https://github.com/user-attachments/assets/0e4c5c5f-10c3-4e6d-bf41-ef107bf3052f)
 
 
@@ -93,20 +93,20 @@ Release: https://github.com/notcookies/Steam-Screenshot-downloader/releases/tag/
 - Specify the **page range** you want to download.
 - For a test run, try downloading pages **1 to 2**.
 
-
+For examp：
 ![exe步骤2](https://github.com/user-attachments/assets/4a8e51d8-75e6-4a3a-90d0-7ee8e159e79d)
 
 
 
 ✅ If everything is set up correctly, the program should run smoothly and download your screenshots!
 
-
+For examp 1：
 ![exe步骤10](https://github.com/user-attachments/assets/d5d29944-7d71-4a2a-b0c0-6380c518ba88)
 
-
+For examp 2：
 ![exe步骤8](https://github.com/user-attachments/assets/d33b72f8-b3ad-4779-aed9-a9cdefa4c0d3)
 
-
+For examp 3：
 ![exe步骤9](https://github.com/user-attachments/assets/f3f37005-92e9-403a-bc5c-8c4119299e63)
 
 
