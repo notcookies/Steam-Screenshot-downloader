@@ -23,6 +23,7 @@
 +------------------------------------------+------------------------------------------+
 
 steam_screenshot_downloader/
+
 ├── chrome/
 
 │ ├── chrome.exe # chrome for testing
