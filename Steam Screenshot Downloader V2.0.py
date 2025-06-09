@@ -87,7 +87,7 @@ def fetch_img_urls_concurrently(driver, links, stop_flag):
         t = threading.Thread(target=worker, args=(i, link))
         t.start()
         threads.append(t)
-        time.sleep(0.1)  
+        time.sleep(0.1)
 
     for t in threads:
         t.join()
@@ -100,7 +100,7 @@ def download_img(page, link, save_dir, stop_flag, idx):
         return None
     for attempt in range(3):
         try:
-            time.sleep(random.uniform(0.2, 0.5))  
+            time.sleep(random.uniform(0.2, 0.5))
             r = requests.get(link, stream=True, timeout=5)
             r.raise_for_status()
             match = re.search(r'"([^"]+)"', r.headers.get('Content-Disposition', ''))
@@ -115,18 +115,18 @@ def download_img(page, link, save_dir, stop_flag, idx):
                     with open(path, "wb") as f:
                         for chunk in r.iter_content(1024):
                             f.write(chunk)
-                    if idx % 5 == 0:
+                    if idx % 50 == 0:
                         print(f"[Page {page}] Downloaded {idx+1} screenshots...")
-                    return None  
+                    return None
         except:
             if attempt == 2:
                 print(f"[Page {page}] ❌ Failed to download screenshot {idx+1}")
-                return link  
+                return link
     return None
 
 def threaded_download_imgs(img_links, page, save_dir, stop_flag):
     error_links = []
-    download_counter = [0]  
+    download_counter = [0]
     lock = threading.Lock()
 
     def wrapped_download(link, idx):
