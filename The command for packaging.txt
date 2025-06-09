@@ -1,1 +1,1 @@
-PS E:\Python\Steam-Screenshot-downloader> pyinstaller --noconfirm --onefile --windowed '.\Steam Screenshot Download V2.0.py'
+PS E:\Python\Steam-Screenshot-downloader> pyinstaller --noconfirm --onefile --windowed '.\Steam Screenshot Downloader V2.0.py'
