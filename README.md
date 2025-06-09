@@ -7,7 +7,7 @@
    After logging into Steam, the tool can download all screenshots, including *Public*, *Friends Only*, and *Private*, with no restrictions.“You can see it，you can download it.”
 
 3. **Default Download Strategy**  
-   -https://steamcommunity.com/id/**{steam_id}**/screenshots/?p={**page**}&sort=**oldestfirst**&browsefilter=myfiles&view=**grid**&**privacy=30**
+   -steamcommunity.com/id/**{steam_id}**/screenshots/?p={**page**}&sort=**oldestfirst**&browsefilter=myfiles&view=**grid**&**privacy=30**
    - Downloads **all** available screenshots  
    - Uses **Grid View** mode
    - Starts from **Page 1**, downloading from the **oldest** screenshots first  
