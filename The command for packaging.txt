@@ -1,9 +1,2 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 pyinstaller --noconfirm --onefile --windowed '.\Steam Screenshot Downloader V2.0.py'
-=======
-PS E:\Python\Steam-Screenshot-downloader> pyinstaller --noconfirm --onefile --windowed '.\Steam Screenshot Downloader V2.0.py'
->>>>>>> 56ff89c73d53bf8ca3446184a51e75541c50ce1a
-=======
-PS E:\Python\Steam-Screenshot-downloader> pyinstaller --noconfirm --onefile --windowed '.\Steam Screenshot Downloader aaaV2.0.py'
->>>>>>> 919a2db76eabef09ef34c9c8e7a00f8e24c7b46e
+
