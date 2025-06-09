@@ -18,7 +18,7 @@
 5. **Simple Graphical User Interface (GUI)**  
    A basic GUI is provided for users to select the download path, define the page range, and configure the Chrome user data directory.
 
-~~6. Single-Threaded with Random Delay~~  
+6. ~~Single-Threaded with Random Delay~~  
    ~~The current version uses single-threaded downloading, which may be slower. A random delay of 1–2 seconds is added between each download to avoid triggering Steam's rate limits, ensuring stable operation without being blocked.~~
 
 6. **Multithreaded Support with High Download Speed**  
