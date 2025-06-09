@@ -24,12 +24,11 @@
 
 steam_screenshot_downloader/
 ├── chrome/
-│   ├── chrome.exe
-│   └── chromedriver.exe
-├── main.py
-├── requirements.txt
-└── README.md
-
+│ ├── chrome.exe # chrome for testing
+│ └── chromedriver.exe #  ChromeDriver
+├── Steam Screenshot Download V2.0.py 
+├── requirements.txt 
+└── README.md 
 
 +------------------------------------------+------------------------------------------+
 # How to use it?
