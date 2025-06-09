@@ -22,7 +22,16 @@
 
 +------------------------------------------+------------------------------------------+
 
+steam_screenshot_downloader/
+├── chrome/
+│   ├── chrome.exe
+│   └── chromedriver.exe
+├── main.py
+├── requirements.txt
+└── README.md
 
+
++------------------------------------------+------------------------------------------+
 # How to use it?
 
 ## 1. Download
