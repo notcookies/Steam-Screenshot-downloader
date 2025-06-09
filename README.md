@@ -25,6 +25,7 @@
    The latest version now supports true multithreaded downloading, significantly improving speed. A retry mechanism is included for failed downloads, and automatic Steam cookie retrieval ensures smooth operation.
 
 +------------------------------------------+------------------------------------------+
+
 For user：
 
 dist/
@@ -41,6 +42,7 @@ dist/
 
    
 +------------------------------------------+------------------------------------------+
+
 For parking：
 
 steam_screenshot_downloader/
