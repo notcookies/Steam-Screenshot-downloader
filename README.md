@@ -38,3 +38,7 @@ steam_screenshot_downloader/
 └── README.md
 
 +------------------------------------------+------------------------------------------+
+
+# Video
+https://youtu.be/osDHMGYYfiA
+
