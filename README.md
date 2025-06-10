@@ -18,10 +18,32 @@
 5. **Simple Graphical User Interface (GUI)**  
    A basic GUI is provided for users to select the download path, define the page range, and configure the Chrome user data directory.
 
-~~6. Single-Threaded with Random Delay~~  
+6. ~~Single-Threaded with Random Delay~~  
    ~~The current version uses single-threaded downloading, which may be slower. A random delay of 1–2 seconds is added between each download to avoid triggering Steam's rate limits, ensuring stable operation without being blocked.~~
-**6. Multithreaded Support with High Download Speed**  
+
+6. **Multithreaded Support with High Download Speed**  
    The latest version now supports true multithreaded downloading, significantly improving speed. A retry mechanism is included for failed downloads, and automatic Steam cookie retrieval ensures smooth operation.
+
++------------------------------------------+------------------------------------------+
+
+For user：
+
+dist/
+
+├── Steam Screenshot Download V2.1.exe
+
+├── chrome/
+
+│   ├── chrome.exe
+
+│   └── chromedriver.exe
+
+**Don't worry, the rar package inside the release already contains everything.**
+
+   
++------------------------------------------+------------------------------------------+
+
+For parking：
 
 steam_screenshot_downloader/
 
@@ -31,13 +53,14 @@ steam_screenshot_downloader/
 
 │ └── chromedriver.exe #  ChromeDriver
 
-├── Steam Screenshot Download V2.0.py 
+├── Steam Screenshot Download V2.1.py 
 
 ├── requirements.txt 
 
 └── README.md
 
 +------------------------------------------+------------------------------------------+
+
 
 # Video
 https://youtu.be/osDHMGYYfiA
