@@ -7,6 +7,7 @@ import win32con
 import requests
 import threading
 import win32file
+import pythoncom
 import pywintypes
 import win32timezone
 import tkinter as tk
@@ -57,42 +58,60 @@ def get_screenshot_links(driver, steam_id, page):
         links = [a['href'] for a in soup.select('a[href*="//steamcommunity.com/sharedfiles/filedetails/"]')]
         if links:
             print(f"[Page {page}] Found {len(links)} screenshot links.\n")
-            print(f"Fetching the original resolution URLs of the {len(links)} screenshots, please wait 1-2 minutes.")
+            print(f"Fetching the original resolution URLs of the {len(links)} screenshots, please wait ...")
             return links
     print(f"[Page {page}] No screenshot links found.")
     return []
 
 # Get image URL
-def get_img_url(driver, link):
+# change driver.get to request_html
+def get_img_url_from_html(link, cookies):
     try:
-        driver.get(link)
-        time.sleep(random.uniform(0.3, 0.6))
-        soup = BeautifulSoup(driver.page_source, "html.parser")
+        headers = {
+            "User-Agent": "Mozilla/5.0"
+        }
+        r = requests.get(link, headers=headers, cookies=cookies, timeout=10)
+        soup = BeautifulSoup(r.text, "html.parser")
         tag = soup.select_one('a[href*="//images.steamusercontent.com/ugc/"]')
         if tag:
             return urlunparse(urlparse(tag['href'])._replace(query=''))
-    except:
-        return None
+    except Exception as e:
+        print(f"Error fetching {link}: {e}")
+    return None
 
-def fetch_img_urls_concurrently(driver, links, stop_flag):
-    img_urls = [None] * len(links)
 
-    def worker(i, link):
-        if stop_flag:
-            return
-        img_urls[i] = get_img_url(driver, link)
+# fetch requests img_urls
+def fetch_img_urls_concurrently_requests(links, cookies, page):
+    def worker(link):
+        return get_img_url_from_html(link, cookies)
 
-    threads = []
-    for i, link in enumerate(links):
-        t = threading.Thread(target=worker, args=(i, link))
-        t.start()
-        threads.append(t)
-        time.sleep(0.1)
+    img_urls = []
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        futures = {executor.submit(worker, link): link for link in links}
+        for i, future in enumerate(as_completed(futures)):
+            try:
+                result = future.result(timeout=15)
+                if result:
+                    img_urls.append(result)
+            except Exception as e:
+                print(f"Failed to fetch link: {futures[future]} Error: {e}")
+    print(f"[Page {page}] ✅ Retrieved {len(img_urls)} original image links.\n")
+    return img_urls
 
-    for t in threads:
-        t.join()
-    return [url for url in img_urls if url]
 
+# Chrome.get_cookies
+def extract_steam_cookies_from_driver(driver):
+    cookies = driver.get_cookies()
+    cookie_dict = {}
+    if cookies:
+
+        for c in cookies:
+            if c['name'] in ['steamLoginSecure', 'sessionid', 'steamCountry']:
+                cookie_dict[c['name']] = c['value']
+        print('Get Steam Cookies from Chrome_for_testing success')        
+        return cookie_dict
+    else:
+        print('no cookies')
 
 # Download image
 def download_img(page, link, save_dir, stop_flag, idx):
@@ -120,7 +139,6 @@ def download_img(page, link, save_dir, stop_flag, idx):
                     return None
         except:
             if attempt == 2:
-                print(f"[Page {page}] ❌ Failed to download screenshot {idx+1}")
                 return link
     return None
 
@@ -198,7 +216,7 @@ class SteamDownloaderApp:
         self.stop_flag = False
         self.root = root
         root.title("Steam Screenshot Downloader")
-        root.geometry("600x450")
+        root.geometry("600x500")  # Increase the window size to accommodate all inputs
         root.resizable(False, False)
 
         style = ttk.Style()
@@ -215,7 +233,7 @@ class SteamDownloaderApp:
         self.make_widgets()
         sys.stdout = TextRedirector(self.text_log)
 
-    def make_widgets(self): 
+    def make_widgets(self):
         frame = ttk.Frame(self.root, padding=10)
         frame.pack(fill="both", expand=True)
 
@@ -237,15 +255,14 @@ class SteamDownloaderApp:
         ttk.Entry(frame, textvariable=self.end_page, width=10).grid(row=4, column=1, sticky="w")
 
         button_frame = ttk.Frame(frame)
-        button_frame.grid(row=5, column=0, columnspan=3, pady=10)
+        button_frame.grid(row=8, column=0, columnspan=3, pady=10)
 
         ttk.Button(button_frame, text="Start Download", width=15, command=self.start_thread).pack(side="left", padx=10)
         ttk.Button(button_frame, text="Stop Download", width=15, command=self.stop_download).pack(side="left", padx=10)
 
         self.text_log = tk.Text(frame, height=12, wrap="word", font=("Consolas", 9))
-        self.text_log.grid(row=6, column=0, columnspan=3, sticky="nsew", pady=10)
+        self.text_log.grid(row=9, column=0, columnspan=3, sticky="nsew", pady=10)
         self.text_log.config(state="normal")
-
 
     def select_download_dir(self):
         path = filedialog.askdirectory()
@@ -260,16 +277,19 @@ class SteamDownloaderApp:
     def start_thread(self):
         t = threading.Thread(target=self.run_downloader)
         t.start()
+
     def stop_download(self):
         self.stop_flag = True
         print("⛔Stop after completing the remaining tasks...")
         time.sleep(3)
         self.stop_flag = False
 
+
     def run_downloader(self):
         steam_id = self.steam_id.get()
         download_dir = self.download_dir.get()
         chrome_dir = self.chrome_dir.get()
+
         try:
             start_page = int(self.start_page.get())
             end_page = int(self.end_page.get())
@@ -285,12 +305,27 @@ class SteamDownloaderApp:
         driver = init_chrome(chrome_dir)
         time.sleep(random.uniform(1, 2))
 
+        cookies = None  # int cookies
+
         for page in range(start_page, end_page + 1):
             if self.stop_flag:
                 print("⛔ Download stopped by user.")
                 break
+
             links = get_screenshot_links(driver, steam_id, page)
-            img_links = [get_img_url(driver, url) for url in links if url]
+
+            if not links:
+                continue
+
+            # try get cookies
+            if cookies is None:
+                cookies = extract_steam_cookies_from_driver(driver)
+                if not all(k in cookies for k in ["steamLoginSecure", "sessionid", "steamCountry"]):
+                    print("❌ Missing required cookies from Chrome session.")
+                    driver.quit()
+                    return
+
+            img_links = fetch_img_urls_concurrently_requests(links, cookies, page)
             retry_links = img_links
             while retry_links:
                 retry_links = threaded_download_imgs(retry_links, page, download_dir, self.stop_flag)
@@ -299,7 +334,7 @@ class SteamDownloaderApp:
 
         driver.quit()
         print("✅ All downloads completed.")
-        
+
         set_all_creation_times(download_dir)
         print("✅ Creation time update completed.")
 
@@ -309,6 +344,8 @@ class SteamDownloaderApp:
             if os.path.isdir(app_screenshot_dir):
                 generate_thumbnails(app_screenshot_dir, app_thumbnail_dir)
         print("✅ Thumbnails generation completed.")
+
+
 
 # Run GUI
 if __name__ == "__main__":
