@@ -216,7 +216,7 @@ class SteamDownloaderApp:
         self.stop_flag = False
         self.root = root
         root.title("Steam Screenshot Downloader")
-        root.geometry("600x500")  # Increase the window size to accommodate all inputs
+        root.geometry("600x500")
         root.resizable(False, False)
 
         style = ttk.Style()
