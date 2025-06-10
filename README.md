@@ -63,5 +63,10 @@ steam_screenshot_downloader/
 
 
 # Video
+v2.1:
+https://youtu.be/xo8fKS03YXo
+
+v2.0:
 https://youtu.be/osDHMGYYfiA
+
 
