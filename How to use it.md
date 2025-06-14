@@ -1,5 +1,3 @@
-# How to use it?
-
 ## 1. Download
 
 - Download and unzip the **Steam-Screenshot-Downloader**.
