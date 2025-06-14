@@ -24,9 +24,8 @@
 6. **Multithreaded Support with High Download Speed**  
    The latest version now supports true multithreaded downloading, significantly improving speed. A retry mechanism is included for failed downloads, and automatic Steam cookie retrieval ensures smooth operation.
 
-+------------------------------------------+------------------------------------------+
 
-For user：
+# For user：
 
 dist/
 
@@ -41,25 +40,6 @@ dist/
 **Don't worry, the rar package inside the release already contains everything.**
 
    
-+------------------------------------------+------------------------------------------+
-
-For parking：
-
-steam_screenshot_downloader/
-
-├── chrome/
-
-│ ├── chrome.exe # chrome for testing
-
-│ └── chromedriver.exe #  ChromeDriver
-
-├── Steam Screenshot Download V2.1.py 
-
-├── requirements.txt 
-
-└── README.md
-
-+------------------------------------------+------------------------------------------+
 
 
 # Video
