@@ -1,3 +1,4 @@
+# 👉 See How to use it.md for usage.
 # Steam Screenshot Downloader
 
 1. **Uses Official Chrome for Testing and ChromeDriver**  
