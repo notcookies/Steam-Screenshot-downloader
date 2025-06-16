@@ -1,4 +1,6 @@
 # 👉 See How to use it.md for usage.
+![演示](https://github.com/user-attachments/assets/1260daa3-af1f-44d5-acbf-e0dcf23d2cb3)
+
 # Steam Screenshot Downloader
 
 1. **Uses Official Chrome for Testing and ChromeDriver**  
