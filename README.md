@@ -1,5 +1,6 @@
 # 👉 See How to use it.md for usage.
-![演示](https://github.com/user-attachments/assets/1260daa3-af1f-44d5-acbf-e0dcf23d2cb3)
+![演示](https://github.com/user-attachments/assets/dc242466-d25e-40fc-bc74-0bd6b39f2358)
+
 
 # Steam Screenshot Downloader
 
