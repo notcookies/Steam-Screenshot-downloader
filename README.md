@@ -50,11 +50,11 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 # Disclaimer:
 In theory, this works just like logging into Steam in Chrome.
 
-If you're worried about security, feel free to replace the included chromedriver and Chrome for Testing in the release with your own from official sources.
+If you're worried about security, feel free to **replace the included chromedriver and Chrome for Testing in the release** with your own from official sources.
 
 The .exe is packed using Python tools directly from the source code — I’ve verified it.
 
-For extra peace of mind, change your Steam password after downloading.
+For extra peace of mind, **change your Steam password after downloading**.
 
 
 
