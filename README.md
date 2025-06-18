@@ -1,4 +1,4 @@
-# 👉 See How to use it.md for usage.
+# 👉 See How to use it.md for detailed usage.
 ![演示](https://github.com/user-attachments/assets/dc242466-d25e-40fc-bc74-0bd6b39f2358)
 Quick Guide:
 
