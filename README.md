@@ -19,6 +19,27 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 
 5. Enter the start and end page numbers, then start downloading.
 
+# Video
+v2.0 full Operation:
+https://youtu.be/osDHMGYYfiA
+
+v2.1:
+https://youtu.be/xo8fKS03YXo
+
+
+# For user：
+
+dist/
+
+├── Steam Screenshot Download V2.1.exe
+
+├── chrome/
+
+│   ├── chrome.exe
+
+│   └── chromedriver.exe
+
+**Don't worry, the rar package inside the release already contains everything.**
 
 
 # Steam Screenshot Downloader
@@ -40,9 +61,6 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 
 5. **Simple Graphical User Interface (GUI)**  
    A basic GUI is provided for users to select the download path, define the page range, and configure the Chrome user data directory.
-
-6. ~~Single-Threaded with Random Delay~~  
-   ~~The current version uses single-threaded downloading, which may be slower. A random delay of 1–2 seconds is added between each download to avoid triggering Steam's rate limits, ensuring stable operation without being blocked.~~
 
 6. **Multithreaded Support with High Download Speed**  
    The latest version now supports true multithreaded downloading, significantly improving speed. A retry mechanism is included for failed downloads, and automatic Steam cookie retrieval ensures smooth operation.
@@ -104,29 +122,6 @@ exe文件可以使用python打包工具直接对源代码打包，我已经做�
 保险起见，截图下载完成后建议更换一次密码。
 
 
-# For user：
-
-dist/
-
-├── Steam Screenshot Download V2.1.exe
-
-├── chrome/
-
-│   ├── chrome.exe
-
-│   └── chromedriver.exe
-
-**Don't worry, the rar package inside the release already contains everything.**
-
-   
-
-
-# Video
-v2.1:
-https://youtu.be/xo8fKS03YXo
-
-v2.0:
-https://youtu.be/osDHMGYYfiA
 
 
 
