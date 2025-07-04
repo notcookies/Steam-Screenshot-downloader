@@ -109,7 +109,7 @@ def extract_steam_cookies_from_driver(driver):
     if cookies:
 
         for c in cookies:
-            if c['name'] in ['steamLoginSecure', 'sessionid', 'steamCountry']:
+            if c['name'] in ['steamLoginSecure', 'sessionid']:
                 cookie_dict[c['name']] = c['value']
         print('Get Steam Cookies from Chrome_for_testing success')        
         return cookie_dict
@@ -361,7 +361,7 @@ class SteamDownloaderApp:
             # try get cookies
             if cookies is None:
                 cookies = extract_steam_cookies_from_driver(driver)
-                if not all(k in cookies for k in ["steamLoginSecure", "sessionid", "steamCountry"]):
+                if not all(k in cookies for k in ["steamLoginSecure", "sessionid"]):
                     print("❌ Missing required cookies from Chrome session.")
                     driver.quit()
                     return
