@@ -1,4 +1,6 @@
-# 👉 See How to use it.md for detailed usage.
+#  Video
+# v2.3
+# https://youtu.be/9wv2S5nMiGk
 ![演示](https://github.com/user-attachments/assets/dc242466-d25e-40fc-bc74-0bd6b39f2358)
 Quick Guide:
 
@@ -18,13 +20,6 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 
 
 5. Enter the start and end page numbers, then start downloading.
-
-# Video
-v2.0 full Operation:
-https://youtu.be/osDHMGYYfiA
-
-v2.1:
-https://youtu.be/xo8fKS03YXo
 
 
 # For user：
