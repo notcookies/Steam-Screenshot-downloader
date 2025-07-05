@@ -41,8 +41,8 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 
 # How it works?
 
-1. **Uses Official Chrome for Testing and ChromeDriver**  
-   Utilizes the official Chrome for Testing and matching ChromeDriver for web automation, ensuring compatibility and stability.
+1. **Uses Official Chrome for Testing and Chrome Driver**  
+   Utilizes the official Chrome for Testing and matching Chrome Driver for web automation, ensuring compatibility and stability.
 
 2. **Supports All Screenshot Categories**  
    After logging into Steam, the tool can download all screenshots, including *Public*, *Friends Only*, and *Private*, with no restrictions.“You can see it，you can download it.”
