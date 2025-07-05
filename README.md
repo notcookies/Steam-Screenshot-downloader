@@ -39,7 +39,7 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 
 3. For extra peace of mind, **change your Steam password after downloading**.
 
-# Steam Screenshot Downloader
+# How it works?
 
 1. **Uses Official Chrome for Testing and ChromeDriver**  
    Utilizes the official Chrome for Testing and matching ChromeDriver for web automation, ensuring compatibility and stability.
