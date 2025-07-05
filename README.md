@@ -1,6 +1,8 @@
 #  Video v2.3
 # https://youtu.be/9wv2S5nMiGk
-![演示](https://github.com/user-attachments/assets/dc242466-d25e-40fc-bc74-0bd6b39f2358)
+
+![user_guide](https://github.com/user-attachments/assets/7c404d3b-7793-41ee-a1d3-1df878c0b95f)
+
 
 # Three common scenarios:
 
