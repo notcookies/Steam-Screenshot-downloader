@@ -2,6 +2,20 @@
 # https://youtu.be/9wv2S5nMiGk
 ![演示](https://github.com/user-attachments/assets/dc242466-d25e-40fc-bc74-0bd6b39f2358)
 
+# Three common scenarios:
+
+1. Unable to locate the Steam profile.
+If you haven't customized your Steam profile URL, your profile and screenshot pages will start with https://steamcommunity.com/your_steam_ID. However, if you've customized your URL, the prefix will include /id/, such as https://steamcommunity.com/id/lgsgdsb233/.
+This software uses the latter format by default, so you may need to customize your URL accordingly.
+
+2. The popped-up Chrome for Testing cannot display the grid view with 50 screenshots.
+In this case, you need to manually log in to Steam before using this software. After logging in, try randomly opening a few screenshot detail pages—this will also help ensure that the software can retrieve Steam cookies successfully.
+
+3. Please do not paste Windows-style paths directly.
+The file paths should follow Python syntax.
+Hmm... maybe I should add an automatic escape feature. (Tag this as: enhance)
+
+
 # Quick Guide:
 
 1. Extract the release, open chrome.exe in the chrome folder, log in to Steam, and check if you can open your screenshot detail page, e.g.:
@@ -20,19 +34,6 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 
 
 5. Enter the start and end page numbers, then start downloading.
-# Three common scenarios:
-
-1. Unable to locate the Steam profile.
-If you haven't customized your Steam profile URL, your profile and screenshot pages will start with https://steamcommunity.com/your_steam_ID. However, if you've customized your URL, the prefix will include /id/, such as https://steamcommunity.com/id/lgsgdsb233/.
-This software uses the latter format by default, so you may need to customize your URL accordingly.
-
-2. The popped-up Chrome for Testing cannot display the grid view with 50 screenshots.
-In this case, you need to manually log in to Steam before using this software. After logging in, try randomly opening a few screenshot detail pages—this will also help ensure that the software can retrieve Steam cookies successfully.
-
-3. Please do not paste Windows-style paths directly.
-The file paths should follow Python syntax.
-Hmm... maybe I should add an automatic escape feature. (Tag this as: enhance)
-
 
 # Disclaimer:
 In theory, this works just like logging into Steam in Chrome.
