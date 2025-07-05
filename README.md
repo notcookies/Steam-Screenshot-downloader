@@ -33,13 +33,11 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 5. Enter the start and end page numbers, then start downloading.
 
 # Disclaimer:
-In theory, this works just like logging into Steam in Chrome.
+1. In theory, this works just like logging into Steam in Chrome.If you're worried about security, feel free to **replace the included chromedriver and Chrome for Testing in the release** with your own from official sources.
 
-If you're worried about security, feel free to **replace the included chromedriver and Chrome for Testing in the release** with your own from official sources.
+2. The .exe is packed using Python tools directly from the source code — I’ve verified it.
 
-The .exe is packed using Python tools directly from the source code — I’ve verified it.
-
-For extra peace of mind, **change your Steam password after downloading**.
+3. For extra peace of mind, **change your Steam password after downloading**.
 
 # Steam Screenshot Downloader
 
@@ -50,19 +48,16 @@ For extra peace of mind, **change your Steam password after downloading**.
    After logging into Steam, the tool can download all screenshots, including *Public*, *Friends Only*, and *Private*, with no restrictions.“You can see it，you can download it.”
 
 3. **Default Download Strategy**  
-   - steamcommunity.com/id/**{steam_id}**/screenshots/?p={**page**}&sort=**oldestfirst**&browsefilter=myfiles&view=**grid**&**privacy=30**
-   - Downloads **all** available screenshots  
-   - Uses **Grid View** mode
-   - Starts from **Page 1**, downloading from the **oldest** screenshots first  
+   - steamcommunity.com/id/**{steam_id}**/screenshots/?p={**page**}&sort=**oldestfirst**&browsefilter=myfiles&view=**grid**&**privacy=30**.
+   - Downloads **all** available screenshots.
+   - Uses **Grid View** mode.
+   - Downloading from the **oldest** screenshots first. 
 
 4. **File Naming Convention**  
-   Downloaded images are named using the **Steam app ID + upload timestamp**, fully consistent with how the Steam client names them. This makes organizing and archiving easier.
+   Downloaded images are named using the **Steam app ID + upload timestamp**, fully consistent with how the Steam client names them.
 
-5. **Simple Graphical User Interface (GUI)**  
-   A basic GUI is provided for users to select the download path, define the page range, and configure the Chrome user data directory.
-
-6. **Multithreaded Support with High Download Speed**  
-   The latest version now supports true multithreaded downloading, significantly improving speed. A retry mechanism is included for failed downloads, and automatic Steam cookie retrieval ensures smooth operation.
+5. **Multithreaded Support with High Download Speed**  
+   Starting from version 2.0, the software supports true multithreaded downloading.
 
 
 
