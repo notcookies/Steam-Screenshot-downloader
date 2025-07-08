@@ -1,6 +1,7 @@
 #  Video v2.3
-# https://www.bilibili.com/video/BV1bE3rzrEjY/
 # https://youtu.be/9wv2S5nMiGk
+# https://www.bilibili.com/video/BV1bE3rzrEjY/
+
 
 ![user_guide](https://github.com/user-attachments/assets/7c404d3b-7793-41ee-a1d3-1df878c0b95f)
 
