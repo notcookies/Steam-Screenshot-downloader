@@ -7,7 +7,7 @@
 
 PayPal
 
-[![Donate with PayPal](https://img.shields.io/badge/Donate-PayPal-0070ba?logo=paypal&logoColor=white&style=for-the-badge)](https://paypal.me/dongyunboshi)
+[![PayPal](https://img.shields.io/badge/PayPal-0070ba?logo=paypal&logoColor=white&style=flat)](https://paypal.me/dongyunboshi)
 
 支付宝赞助 / Alipay Donate
 
