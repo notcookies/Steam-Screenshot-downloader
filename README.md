@@ -9,12 +9,12 @@ PayPal
 
 [![PayPal](https://img.shields.io/badge/PayPal-0070ba?logo=paypal&logoColor=white&style=flat)](https://paypal.me/dongyunboshi)
 
-支付宝赞助 / Alipay Donate
+WeChat / Alipay (国内用户)
 
-扫码使用支付宝支持我：
-
-<img src="assets/alipay.png" alt="Alipay QR Code" width="160"/>
-
+<div align="left">
+  <img src="assets/wechat.png" alt="WeChat Pay" width="160"/>
+  <img src="assets/alipay.png" alt="Alipay" width="160"/>
+</div>
 
 
 
