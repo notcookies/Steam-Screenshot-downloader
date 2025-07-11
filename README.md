@@ -116,9 +116,9 @@ exe文件可以使用python打包工具直接对源代码打包，我已经做�
 
 # 下载慢可以用夸克
 
-我用夸克网盘给你分享了「Steam.Sc...V2.4」，点击链接或复制整段内容，打开「夸克APP」即可获取。
-/~93b237IZ3Z~:/
-链接：https://pan.quark.cn/s/f61e7c251a99
+我用夸克网盘给你分享了「Steam Screenshot Downloader V2.4.rar」，点击链接或复制整段内容，打开「夸克APP」即可获取。
+/~814137Izw2~:/
+链接：https://pan.quark.cn/s/3f79366fc175
 
 
 
