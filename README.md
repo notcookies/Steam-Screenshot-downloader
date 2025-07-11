@@ -79,7 +79,7 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 5. **Multithreaded Support with High Download Speed**  
    Starting from version 2.0, the software supports true multithreaded downloading.
 
-## License
+# License
 
 This project is licensed under the GNU General Public License v3.0.  
 See the [LICENSE](./LICENSE) file for details.
