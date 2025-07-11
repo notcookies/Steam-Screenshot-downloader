@@ -2,8 +2,39 @@
 |----------------------------------|--------------------------------|
 | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/notcookies/Steam-Screenshot-downloader)](https://github.com/notcookies/Steam-Screenshot-downloader/releases)<br>[![GitHub All Releases](https://img.shields.io/github/downloads/notcookies/Steam-Screenshot-downloader/total.svg)](https://github.com/notcookies/Steam-Screenshot-downloader/releases) | [![PayPal](https://img.shields.io/badge/PayPal-0070ba?logo=paypal&logoColor=white&style=flat)](https://paypal.me/dongyunboshi)<br>[<img src="assets/Alipay.jpg" alt="Alipay" width="20"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/Alipay.jpg) [<img src="assets/WeChat_Pay.jpg" alt="WeChat" width="20"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/WeChat_Pay.jpg) |
 
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+
+<!-- 📦 Download Column -->
+<div style="flex: 1; min-width: 280px;">
+  <h3>📦 Download & Release Information</h3>
+  <a href="https://github.com/notcookies/Steam-Screenshot-downloader/releases">
+    <img src="https://img.shields.io/github/v/release/notcookies/Steam-Screenshot-downloader" />
+  </a><br>
+  <a href="https://github.com/notcookies/Steam-Screenshot-downloader/releases">
+    <img src="https://img.shields.io/github/downloads/notcookies/Steam-Screenshot-downloader/total.svg" />
+  </a>
+</div>
+
+<!-- ❤️ Sponsor Column -->
+<div style="flex: 1; min-width: 280px;">
+  <h3>❤️ Sponsor</h3>
+  <a href="https://paypal.me/dongyunboshi">
+    <img src="https://img.shields.io/badge/PayPal-0070ba?logo=paypal&logoColor=white&style=flat" />
+  </a><br><br>
+  <a href="https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/Alipay.jpg">
+    <img src="assets/Alipay.jpg" alt="Alipay" width="24" />
+  </a>
+  &nbsp;
+  <a href="https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/WeChat_Pay.jpg">
+    <img src="assets/WeChat_Pay.jpg" alt="WeChat" width="24" />
+  </a>
+</div>
+
+</div>
 
 
+
+# Steam Screenshot Downloader
 
 
 
