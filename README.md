@@ -11,10 +11,8 @@ PayPal
 
 WeChat / Alipay (国内用户)
 
-<div align="left">
-  <img src="assets/WeChat_Pay.jpg" alt="WeChat Pay" width="160"/>
-  <img src="assets/Alipay.jpg" alt="Alipay" width="160"/>
-</div>
+[<img src="assets/wechat_icon.png" alt="WeChat" width="32"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/wechat_qrcode.png)
+[<img src="assets/alipay_icon.png" alt="Alipay" width="32"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/alipay_qrcode.png)
 
 
 
