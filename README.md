@@ -3,6 +3,7 @@
 [![GitHub All Releases](https://img.shields.io/github/downloads/notcookies/Steam-Screenshot-downloader/total.svg)](https://github.com/notcookies/Steam-Screenshot-downloader/releases)
 
 ❤️ Sponsor 
+
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/notcookies?label=Sponsor&logo=github)](https://github.com/sponsors/notcookies)
 
 
