@@ -10,6 +10,7 @@ PayPal
 [![PayPal](https://img.shields.io/badge/PayPal-0070ba?logo=paypal&logoColor=white&style=flat)](https://paypal.me/dongyunboshi)
 
 支付宝 / 微信
+
 [<img src="assets/Alipay.jpg" alt="Alipay" width="20"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/Alipay.jpg)[<img src="assets/WeChat_Pay.jpg" alt="WeChat" width="20"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/WeChat_Pay.jpg)
 
 
