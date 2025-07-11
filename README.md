@@ -1,6 +1,7 @@
 📦 Download & Release Information  
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/notcookies/Steam-Screenshot-downloader)](https://github.com/notcookies/Steam-Screenshot-downloader/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/notcookies/Steam-Screenshot-downloader/total.svg)](https://github.com/notcookies/Steam-Screenshot-downloader/releases)
+
 ❤️ Sponsor 
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/notcookies?label=Sponsor&logo=github)](https://github.com/sponsors/notcookies)
 
