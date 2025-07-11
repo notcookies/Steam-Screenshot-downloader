@@ -79,7 +79,10 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 5. **Multithreaded Support with High Download Speed**  
    Starting from version 2.0, the software supports true multithreaded downloading.
 
+## License
 
+This project is licensed under the GNU General Public License v3.0.  
+See the [LICENSE](./LICENSE) file for details.
 
 # 快速指导：
 1.解压release，打开chrome文件夹内的chrome.exe，登陆steam，确认一下能否打开自己的截图详情页，例如：https://steamcommunity.com/sharedfiles/filedetails/?id=3353482389
@@ -127,13 +130,16 @@ exe文件可以使用python打包工具直接对源代码打包，我已经做�
 保险起见，截图下载完成后建议更换一次密码。
 
 
-
-
 # 下载慢可以用夸克
 
 我用夸克网盘给你分享了「Steam Screenshot Downloader V2.4.rar」，点击链接或复制整段内容，打开「夸克APP」即可获取。
 /~814137Izw2~:/
 链接：https://pan.quark.cn/s/3f79366fc175
+
+
+# 许可协议
+本项目遵循 GNU 通用公共许可证 第3版（GPL v3.0）授权。
+有关详细内容，请参阅项目中的 LICENSE 文件。
 
 
 
