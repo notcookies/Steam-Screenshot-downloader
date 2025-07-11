@@ -2,10 +2,10 @@
 |----------------------------------|--------------------------------|
 | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/notcookies/Steam-Screenshot-downloader)](https://github.com/notcookies/Steam-Screenshot-downloader/releases)<br>[![GitHub All Releases](https://img.shields.io/github/downloads/notcookies/Steam-Screenshot-downloader/total.svg)](https://github.com/notcookies/Steam-Screenshot-downloader/releases) | [![PayPal](https://img.shields.io/badge/PayPal-0070ba?logo=paypal&logoColor=white&style=flat)](https://paypal.me/dongyunboshi)<br>[<img src="assets/Alipay.jpg" alt="Alipay" width="20"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/Alipay.jpg) [<img src="assets/WeChat_Pay.jpg" alt="WeChat" width="20"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/WeChat_Pay.jpg) |
 
-## 🎉 Special Thanks to Sponsors /感谢赞助者
+## 🎉 Special Thanks to Sponsors 
 Huge thanks to the following supporters! (Listed by date)
 
-| Name / 昵称  | Message / 留言 | Date / 日期 |
+| Name   | Message | Date  |
 |-------------|----------------|-------------|
 | **Myself**   | Keep it up! ☕  | 2025-07-11  |
 
