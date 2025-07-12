@@ -1,6 +1,6 @@
 | 📦 Release Information & Download Count. | ❤️ Sponsor —— I'd love a $1 coffee if you feel like it.☕~~ |
 |----------------------------------|--------------------------------|
-| [![GitHub release (latest by date)](https://img.shields.io/github/v/release/notcookies/Steam-Screenshot-downloader)](https://github.com/notcookies/Steam-Screenshot-downloader/releases)<br>[![GitHub All Releases](https://img.shields.io/github/downloads/notcookies/Steam-Screenshot-downloader/total.svg)](https://github.com/notcookies/Steam-Screenshot-downloader/releases) | [![PayPal](https://img.shields.io/badge/PayPal-0070ba?logo=paypal&logoColor=white&style=flat)](https://paypal.me/dongyunboshi)<br>[<img src="assets/Alipay.jpg" alt="Alipay" width="20"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/Alipay.jpg) [<img src="assets/WeChat_Pay.jpg" alt="WeChat" width="20"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/WeChat_Pay.jpg) |
+| [![GitHub release (latest by date)](https://img.shields.io/github/v/release/notcookies/Steam-Screenshot-downloader)](https://github.com/notcookies/Steam-Screenshot-downloader/releases)<br>[![GitHub All Releases](https://img.shields.io/github/downloads/notcookies/Steam-Screenshot-downloader/total.svg)](https://github.com/notcookies/Steam-Screenshot-downloader/releases) | [![PayPal](https://img.shields.io/badge/PayPal-0070ba?logo=paypal&logoColor=white&style=flat)](https://paypal.me/dongyunboshi)<br>[<img src="assets/Alipay.jpg" alt="Alipay" width="15"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/Alipay.jpg) [<img src="assets/WeChat_Pay.jpg" alt="WeChat" width="15"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/WeChat_Pay.jpg) |
 
 ## 🎉 Special Thanks to Sponsors 
 Huge thanks to the following supporters! (Listed by date)
@@ -79,7 +79,7 @@ C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 5. **Multithreaded Support with High Download Speed**  
    Starting from version 2.0, the software supports true multithreaded downloading.
 
-## License
+# License
 
 This project is licensed under the GNU General Public License v3.0.  
 See the [LICENSE](./LICENSE) file for details.
@@ -128,13 +128,6 @@ See the [LICENSE](./LICENSE) file for details.
 exe文件可以使用python打包工具直接对源代码打包，我已经做过校验。
 
 保险起见，截图下载完成后建议更换一次密码。
-
-
-# 下载慢可以用夸克
-
-我用夸克网盘给你分享了「Steam Screenshot Downloader V2.4.rar」，点击链接或复制整段内容，打开「夸克APP」即可获取。
-/~814137Izw2~:/
-链接：https://pan.quark.cn/s/3f79366fc175
 
 
 # 许可协议
