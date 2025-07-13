@@ -20,8 +20,8 @@ Huge thanks to the following supporters! (Listed by date)
 https://www.youtube.com/watch?v=1G6fnU91s2w&t=80s
 
 #  Video base_v2.3
-# https://youtu.be/9wv2S5nMiGk
-# https://www.bilibili.com/video/BV1bE3rzrEjY/
+https://youtu.be/9wv2S5nMiGk
+https://www.bilibili.com/video/BV1bE3rzrEjY/
 
 ![image](https://github.com/user-attachments/assets/7a8461b4-a56e-4e92-91e0-c9b706edf9a0)
 
