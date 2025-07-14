@@ -65,6 +65,18 @@ def get_screenshot_links(driver, steam_id, page, appid=None):
     print(f"[Page {page}] No screenshot links found.")
     return []
 
+# Chrome.get_cookies
+def extract_steam_cookies_from_driver(driver, retries=3, delay=2):
+    for attempt in range(1, retries + 1):
+        cookies = driver.get_cookies()
+        cookie_dict = {c['name']: c['value'] for c in cookies}
+        # check cookie
+        if all(k in cookie_dict for k in ["steamLoginSecure", "sessionid"]):
+            print("✅ Steam cookies extracted successfully.")
+            return cookie_dict
+        time.sleep(delay)
+    print("❌ Failed to extract required cookies after 3 attempts.")
+    return {}
 
 # Get image URL
 # change driver.get to request_html
@@ -81,7 +93,6 @@ def get_img_url_from_html(link, cookies):
     except Exception as e:
         print(f"Error fetching {link}: {e}")
     return None
-
 
 # fetch requests img_urls
 def fetch_img_urls_concurrently_requests(links, cookies, page):
@@ -101,24 +112,11 @@ def fetch_img_urls_concurrently_requests(links, cookies, page):
     print(f"[Page {page}] ✅ Retrieved {len(img_urls)} original image links.\n")
     return img_urls
 
-
-# Chrome.get_cookies
-def extract_steam_cookies_from_driver(driver, retries=3, delay=2):
-    for attempt in range(1, retries + 1):
-        cookies = driver.get_cookies()
-        cookie_dict = {c['name']: c['value'] for c in cookies}
-        # check cookie
-        if all(k in cookie_dict for k in ["steamLoginSecure", "sessionid"]):
-            print("✅ Steam cookies extracted successfully.")
-            return cookie_dict
-        time.sleep(delay)
-    print("❌ Failed to extract required cookies after 3 attempts.")
-    return {}
-
 # Download image
 def download_img(page, link, save_dir, stop_flag, idx):
     if stop_flag:
         return None
+    
     for attempt in range(3):
         try:
             time.sleep(random.uniform(0.2, 0.5))
@@ -139,7 +137,6 @@ def download_img(page, link, save_dir, stop_flag, idx):
 
                 folder = os.path.join(save_dir, appid, "screenshots")
                 os.makedirs(folder, exist_ok=True)
-
                 path = os.path.join(folder, new_fname)
                 with open(path, "wb") as f:
                     for chunk in r.iter_content(1024):
@@ -150,40 +147,6 @@ def download_img(page, link, save_dir, stop_flag, idx):
                 return link
     return None
 
-# def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, retry_history=None, start_idx=0):
-
-#     if retry_history is None:
-#         retry_history = {}
-
-#     error_links = []
-#     success_count = 0
-#     lock = threading.Lock()
-
-#     def wrapped_download(link, idx):
-#         result = download_img(page, link, save_dir, stop_flag, idx)
-#         return link, result, idx
-
-#     with ThreadPoolExecutor(max_workers=8) as executor:
-#         future_to_url = {
-#             executor.submit(wrapped_download, link, idx + start_idx): link
-#             for idx, link in enumerate(img_links)
-#         }
-
-#         for future in as_completed(future_to_url):
-#             link, result, idx = future.result()
-#             if result is None:
-#                 with lock:
-#                     success_count += 1
-#                     print(f"[Page {page}] Downloaded {idx+1} of {len(img_links)} screenshots...")
-#             else:
-#                 retry_history[link] = retry_history.get(link, 0) + 1
-#                 if retry_history[link] < max_retries:
-#                     error_links.append(link)
-#                 else:
-#                     print(f"[image {idx+1}]\n{link}")
-                    
-
-#     return error_links, retry_history, success_count
 def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, retry_history=None, link_to_idx=None):
     if retry_history is None:
         retry_history = {}
@@ -221,24 +184,7 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, 
 
     return error_links, retry_history, success_count
 
-
-
-# Set creation time for one file
-def set_creation_time(filepath, timestamp):
-    wintime = pywintypes.Time(timestamp)
-    handle = win32file.CreateFile(
-        filepath,
-        win32con.GENERIC_WRITE,
-        win32con.FILE_SHARE_READ | win32con.FILE_SHARE_WRITE | win32con.FILE_SHARE_DELETE,
-        None,
-        win32con.OPEN_EXISTING,
-        win32con.FILE_ATTRIBUTE_NORMAL,
-        None
-    )
-    win32file.SetFileTime(handle, wintime, wintime, wintime)
-    handle.close()
-
-# Set creation times for all downloaded images
+#Extract timestamp from filenames with new/old formats
 def extract_datetime_from_filename(fname):
     # 1.new format(after 2016): 20250403215812_1.jpg
     match = re.match(r'^(\d{14})_\d+', fname)
@@ -256,6 +202,22 @@ def extract_datetime_from_filename(fname):
             pass
     return None
 
+# Set creation time for one file
+def set_creation_time(filepath, timestamp):
+    wintime = pywintypes.Time(timestamp)
+    handle = win32file.CreateFile(
+        filepath,
+        win32con.GENERIC_WRITE,
+        win32con.FILE_SHARE_READ | win32con.FILE_SHARE_WRITE | win32con.FILE_SHARE_DELETE,
+        None,
+        win32con.OPEN_EXISTING,
+        win32con.FILE_ATTRIBUTE_NORMAL,
+        None
+    )
+    win32file.SetFileTime(handle, wintime, wintime, wintime)
+    handle.close()
+
+# Set creation times for all downloaded images
 def set_all_creation_times(download_dir):
     for root, _, files in os.walk(download_dir):
         for fname in files:
@@ -269,7 +231,6 @@ def set_all_creation_times(download_dir):
                         print(f"Failed to set creation time for {fname}: {e}")
                 else:
                     print(f"Skipped (no timestamp found): {fname}")
-
 
 # Generate thumbnails
 def generate_thumbnails(screenshots_dir, thumbnails_dir, size=(200, 125)):
@@ -380,7 +341,6 @@ class SteamDownloaderApp:
         frame.rowconfigure(9, weight=1)
         self.text_log.config(state="normal")
 
-
     def select_download_dir(self):
         path = filedialog.askdirectory()
         if path:
@@ -400,7 +360,6 @@ class SteamDownloaderApp:
         print("⛔Stop after completing the remaining tasks...")
         time.sleep(3)
         self.stop_flag = False
-
 
     def run_downloader(self):
         steam_id = self.steam_id.get().strip()
@@ -422,10 +381,11 @@ class SteamDownloaderApp:
 
         if not os.path.exists(download_dir):
             os.makedirs(download_dir, exist_ok=True)
+
         driver = init_chrome(chrome_dir)
         time.sleep(random.uniform(1, 2))
-
-        cookies = None  # int cookies
+        
+        cookies = None
 
         for page in range(start_page, end_page + 1):
             if self.stop_flag:
@@ -433,7 +393,6 @@ class SteamDownloaderApp:
                 break
 
             links = get_screenshot_links(driver, steam_id, page, appid=appid)
-
             if not links:
                 continue
 
@@ -455,6 +414,7 @@ class SteamDownloaderApp:
             attempt = 0
 
             link_to_idx = {link: i for i, link in enumerate(img_links)}
+
             while retry_links and attempt < max_retries:
                 attempt += 1
                 if attempt == 2:
@@ -463,6 +423,7 @@ class SteamDownloaderApp:
                     print(f"🔁 Retrying attempt {attempt-1}.")
                 if attempt == max_retries:
                     print('Failed to download after max retries:')
+                    
                 retry_links, retry_history, new_success = threaded_download_imgs(
                     retry_links, page, download_dir, self.stop_flag, max_retries, retry_history,
                     link_to_idx=link_to_idx
@@ -470,8 +431,7 @@ class SteamDownloaderApp:
                 successful_downloads += new_success
 
             print(f"\n[Page {page}] ✅ Page download completed. Total downloaded: {successful_downloads}.\n")
-       
-
+        
         driver.quit()
         print("✅ All downloads completed.")
 
@@ -485,7 +445,6 @@ class SteamDownloaderApp:
                 generate_thumbnails(app_screenshot_dir, app_thumbnail_dir)
         print("✅ Thumbnails generation completed.")
         print("✅ All Done.")
-
 
 # Run GUI
 if __name__ == "__main__":
