@@ -26,10 +26,6 @@ https://www.bilibili.com/video/BV1bE3rzrEjY/
 
 ![image](https://github.com/user-attachments/assets/7a8461b4-a56e-4e92-91e0-c9b706edf9a0)
 
-![c1f87dc7c0abd5677ad5894b995a06b](https://github.com/user-attachments/assets/7939cc37-ad17-4b82-9d11-3e57cce70c69)
-
-![e814547f02950d3bdad1a3f93e2a6ea](https://github.com/user-attachments/assets/8da9b34a-5dc6-4e4a-a652-350a299b7165)
-
 # The common scenarios:
 
 1. Unable to locate the Steam profile.If you haven't customized your Steam profile URL, your profile and screenshot pages will start with https://steamcommunity.com/your_steam_ID. However, if you've customized your URL, the prefix will include /id/, such as https://steamcommunity.com/id/lgsgdsb233/.
@@ -98,6 +94,12 @@ See the [LICENSE](./LICENSE) file for details.
 4.选择chrome for testing的userdata，通常为：C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
 
 5.输入起止页，开始下载
+
+6.如果是UU加速器，选**路由模式**
+
+![c1f87dc7c0abd5677ad5894b995a06b](https://github.com/user-attachments/assets/7939cc37-ad17-4b82-9d11-3e57cce70c69)
+
+![e814547f02950d3bdad1a3f93e2a6ea](https://github.com/user-attachments/assets/8da9b34a-5dc6-4e4a-a652-350a299b7165)
 
 
 # 软件特色：
