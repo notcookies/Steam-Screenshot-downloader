@@ -9,27 +9,16 @@ Huge thanks to the following supporters! (Listed by date)
 |-------------|----------------|-------------|
 | **Myself**   | Keep it up! ☕  | 2025-07-11  |
 
-## User Reviews
-| 📦 Release Information & Download Count. | ❤️ Sponsor —— I'd love a $1 coffee if you feel like it.☕~~ |
-|----------------------------------|--------------------------------|
-1.Just used the updated version you provided. And everything works Fantastic!
-it was able to download all of the screenshots.
-The way you explained everything in detail was nice
-Thank you for looking into it man!
-Amazing tool | 
-2.Yea man. Thank you so much
-this makes saving screenshots way easier
-compared to the one made by ScienceDiscoverer, this one is waaay faster thanks to Multithreading
-works perfectly 👍 | 
-3. Looks fixed, tried with 2 different accounts and worked, thanks! | 
-4.好的我试一下
-可以了！
-路由模式可以下载了！
-up真的厉害，这截图工具解决了大问题，手动一个一个保存下来估计要到明年啦
-已点亮收藏 | 
-5.I was searching for hours and hours to find a good screenshot downloader and i randomly found this video in youtube
-this one is by far the best one, keep up the good work, i managed to download 12k screenshots
-The guide was clear and easy to understand Thank you! | 
+## 🌟 User Reviews
+
+| # | User Review |
+|--|-------------|
+| 1 | Just used the updated version you provided. And everything works Fantastic!<br>It was able to download all of the screenshots.<br>The way you explained everything in detail was nice.<br>Thank you for looking into it man!<br>**Amazing tool** |
+| 2 | Yea man. Thank you so much<br>This makes saving screenshots way easier.<br>Compared to the one made by *ScienceDiscoverer*, this one is **waaay faster** thanks to multithreading.<br>Works perfectly 👍 |
+| 3 | Looks fixed, tried with 2 different accounts and worked, thanks! |
+| 4 | 好的我试一下<br>可以了！<br>路由模式可以下载了！<br>**up真的厉害**，这截图工具解决了大问题，手动一个一个保存下来估计要到明年啦<br>已点亮收藏 ⭐ |
+| 5 | I was searching for hours and hours to find a good screenshot downloader and I randomly found this video in YouTube.<br>This one is by far **the best one**, keep up the good work, I managed to download **12k screenshots**.<br>The guide was clear and easy to understand. Thank you! |
+
 
 
 # Steam Screenshot Downloader
