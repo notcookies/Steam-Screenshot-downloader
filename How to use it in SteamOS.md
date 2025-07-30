@@ -2,6 +2,7 @@
 - Download the **Steam-Screenshot-Downloader_Linux** and **geckodriver (0.36.0)** to a folder on your Steam Deck.
 
 ## 2. Firefox Setup
+SteamOS seems to include a **sandboxed version of Firefox**, which I couldn't invoke.
 - Open Steam Deck ```Konsole``` 
 - Disable SteamOS readonly mode:
 ```
@@ -52,8 +53,8 @@ Save and exit again.
 
 <img width="1285" height="925" alt="Image" src="https://github.com/user-attachments/assets/9c3df332-52b4-4f5f-b697-94824321d734" />
 
-## 2. Test Geckodriver(optiona) & Run Firefox(Required)
-- check geckodriver & firefox(**optiona**)
+## 3. Test Geckodriver(optional) & Run Firefox(Required)
+- check geckodriver & firefox(**optional**)
 ```
 cd /usr/lib/firefox/
 firefox --version
@@ -108,6 +109,6 @@ Mozilla Firefox 141.0
 
 <img width="1488" height="922" alt="Image" src="https://github.com/user-attachments/assets/89c4bd31-f2e4-42d2-81ac-5fc1d824cafe" />
 
-## 3. Enjoy the Tool and Start Downloading Your Screenshots
+## 4. Enjoy the Tool and Start Downloading Your Screenshots
 
 <img width="1354" height="903" alt="Image" src="https://github.com/user-attachments/assets/9fe89e5c-9d70-4214-a681-fa6fe54ca9bd" />
