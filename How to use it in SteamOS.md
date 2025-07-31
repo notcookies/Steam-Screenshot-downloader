@@ -1,6 +1,9 @@
 ## 1. Download
 - Download the **Steam-Screenshot-Downloader_Linux** and **geckodriver (0.36.0)** to a folder on your Steam Deck.
-
+- If they are not executable, please run:
+```
+        chmod +x Steam-Screenshot-Downloader_Linux geckodriver
+```
 ## 2. Firefox Setup
 SteamOS seems to include a **sandboxed version of Firefox**, which I couldn't invoke.
 - Open Steam Deck ```Konsole``` 
