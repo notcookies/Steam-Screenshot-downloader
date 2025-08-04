@@ -38,6 +38,12 @@ https://www.bilibili.com/video/BV1bE3rzrEjY/
 
 ![image](https://github.com/user-attachments/assets/7a8461b4-a56e-4e92-91e0-c9b706edf9a0)
 
+
+# User Guide
+
+- **For Windows users: [How to use it.md](How%20to%20use%20it.md)** 
+- **For SteamOS users: [How to use it in SteamOS.md](How%20to%20use%20it%20in%20SteamOS.md)** 
+
 # The common scenarios:
 
 1. Unable to locate the Steam profile.If you haven't customized your Steam profile URL, your profile and screenshot pages will start with https://steamcommunity.com/your_steam_ID. However, if you've customized your URL, the prefix will include /id/, such as https://steamcommunity.com/id/lgsgdsb233/.
@@ -45,24 +51,22 @@ This software uses the latter format by default, so you may need to customize yo
 
 2. The popped-up Chrome for Testing cannot display the grid view with 50 screenshots.In this case, you need to manually log in to Steam before using this software. After logging in, try randomly opening a few screenshot detail pages—this will also help ensure that the software can retrieve Steam cookies successfully.
 
+3. Missing required cookies from Chrome session. Refer to this typical case:[Issue #11](https://github.com/notcookies/Steam_Screenshot_Downloader/issues/11) "I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded."
+
+
 # Quick Guide:
+**Step 1:**
 
-1. Extract the release, open chrome.exe in the chrome folder, log in to Steam, and check if you can open your screenshot detail page, e.g.:
-https://steamcommunity.com/sharedfiles/filedetails/?id=3353482389
+- **For Windows:**
+   - Extract the release, open chrome.exe in the chrome folder, log in to Steam, and check if you can open your screenshot detail page, e.g.:https://steamcommunity.com/sharedfiles/filedetails/?id=3353482389
 
+- **For SteamOS/Linux(Need some CLI operations):**
+   - Set up Non-sandboxed Firefox
+   - Run Firefox, e.g.: /usr/lib/firefox/firefox, go Firefox settings, go to Privacy & Security → Enhanced Tracking Protection, and set it to Custom
+   - Log in to Steam, and check if you can open your screenshot detail page, e.g.:https://steamcommunity.com/sharedfiles/filedetails/?id=3353482389
 
-2. Enter your SteamID. For example, visit your profile:
-https://steamcommunity.com **/id/** lgsgdsb233/
-
-
-3. Select the folder to save downloaded screenshots.
-
-
-4. Select the Chrome for Testing user data folder, usually:
-C:\Users\YourUsername\AppData\Local\Google\Chrome for Testing\User Data
-
-
-5. Enter the start and end page numbers, then start downloading.
+**Step 2:**
+- Enter your SteamID (e.g. lgsgdsb233 from https://steamcommunity.com/id/lgsgdsb233/). And enter custom download options — common path parameters are auto-detected. Then click Start to download.
 
 # Disclaimer:
 1. In theory, this works just like logging into Steam in Chrome.If you're worried about security, feel free to **replace the included chromedriver and Chrome for Testing in the release** with your own from official sources.
