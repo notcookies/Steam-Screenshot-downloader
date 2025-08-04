@@ -115,3 +115,18 @@ Mozilla Firefox 141.0
 ## 4. Enjoy the Tool and Start Downloading Your Screenshots
 
 <img width="1354" height="903" alt="Image" src="https://github.com/user-attachments/assets/9fe89e5c-9d70-4214-a681-fa6fe54ca9bd" />
+
+
+![c9b72404fe335041408f5d96c197f74](https://github.com/user-attachments/assets/35699f1c-618d-4be8-a52e-988eaa3d1169)
+
+
+<img width="1280" height="800" alt="Screenshot_20250730_185949" src="https://github.com/user-attachments/assets/cc16819e-1dc0-4395-bafc-c25933494555" />
+
+<img width="1280" height="800" alt="Screenshot_20250730_223531" src="https://github.com/user-attachments/assets/e99a3583-b427-4362-ad0e-25f0b53ccb23" />
+
+
+<img width="1280" height="800" alt="Screenshot_20250730_223548" src="https://github.com/user-attachments/assets/d1bab749-dc1e-4451-ad7e-710c44a1e782" />
+
+<img width="1280" height="800" alt="Screenshot_20250730_223559" src="https://github.com/user-attachments/assets/60a490df-952a-44ed-ae5b-dc49283f2df2" />
+
+<img width="1280" height="800" alt="Screenshot_20250730_224650" src="https://github.com/user-attachments/assets/5b5f07f3-4c35-43a6-a9ba-9c7204b1c2cb" />
