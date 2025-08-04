@@ -18,7 +18,8 @@ Huge thanks to the following supporters! (Listed by date)
 | 3 | Looks fixed, tried with 2 different accounts and worked, thanks! |
 | 4 | 好的我试一下<br>可以了！<br>路由模式可以下载了！<br>**up真的厉害**，这截图工具解决了大问题，手动一个一个保存下来估计要到明年啦<br>已点亮收藏 ⭐ |
 | 5 | I was searching for hours and hours to find a good screenshot downloader and I randomly found this video in YouTube.<br>This one is by far **the best one**, keep up the good work, I managed to download **12k screenshots**.<br>The guide was clear and easy to understand. Thank you! |
-| 6 | ....（Looking forward to your use and feedback.） |
+| 6 | I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded. |
+| 7 | ....（Looking forward to your use and feedback.） |
 
 
 # Steam Screenshot Downloader
