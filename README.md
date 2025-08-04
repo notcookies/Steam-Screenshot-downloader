@@ -29,7 +29,7 @@ Huge thanks to the following supporters! (Listed by date)
 ![image](https://github.com/user-attachments/assets/1ffbb150-2ded-4ff1-82be-767f9e1a5275)
 
 #  Video base_v2.5
-https://www.youtube.com/watch?v=1G6fnU91s2w&t=80s
+https://youtu.be/1G6fnU91s2w
 
 #  Video base_v2.3
 https://youtu.be/9wv2S5nMiGk
