@@ -343,7 +343,7 @@ class SteamDownloaderApp:
     def __init__(self, root):
         self.stop_flag = False
         self.root = root
-        root.title("Steam Screenshot Downloader V2.6")
+        root.title("Steam Screenshot Downloader V2.7")
         #root.iconbitmap(resource_path("Steam&Cookies.ico"))
         root.geometry("900x600")
         root.resizable(True, True)
