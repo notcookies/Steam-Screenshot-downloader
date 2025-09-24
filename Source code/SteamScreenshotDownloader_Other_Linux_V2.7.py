@@ -92,10 +92,14 @@ def init_chrome(user_data_path=None, firefox_path=None):
     return webdriver.Firefox(service = service, options=options)
 
 # Get screenshot links
-def get_screenshot_links(driver, steam_id, page, appid=None):
-    base_url = f"https://steamcommunity.com/id/{steam_id}/screenshots/?p={page}&sort=oldestfirst&browsefilter=myfiles&view=grid&privacy=30"
+def get_screenshot_links(driver, steam_id, page, appid=None, screenshot=True):
+    if screenshot:
+        base_url = f"https://steamcommunity.com/id/{steam_id}/screenshots/?p={page}&sort=oldestfirst&browsefilter=myfiles&view=grid&privacy=30"
+    else:
+        base_url = f"https://steamcommunity.com/id/{steam_id}/images/?p={page}&sort=oldestfirst&browsefilter=myfiles&view=grid&privacy=30"
     if appid:
         base_url += f"&appid={appid}"
+
     for _ in range(6):
         time.sleep(random.uniform(1, 2))
         driver.get(base_url)
@@ -166,8 +170,28 @@ def get_appid_filename_from_cd(cd_header: str) -> tuple[str, str]:
 
     full_name = match.group(1)
     idx = full_name.find("_screenshots_")
+    # Handle Artwork filenames
     if idx == -1:
-        raise ValueError("_screenshots_ not found in filename!")
+        appid = "Artwork"
+
+        # Extract filename
+        idx = full_name.find("_")
+        i = idx - 1
+        fname_chars = []
+        while i >= 0 and (full_name[i].isdigit() or full_name[i] == '_'):
+            fname_chars.append(full_name[i])
+            i -= 1
+        filename = ''.join(reversed(fname_chars))  
+        # Append file extension
+        ext_match = re.search(r'\.(jpg|jpeg|png|gif|webp)$', full_name, re.I)
+        if ext_match:
+            filename += ext_match.group(0)
+        else:
+            filename += ".jpg"
+
+        return appid, filename
+    
+    # Handle Screenshot filenames
     # Extract appid
     i = idx - 1
     app_chars = []
@@ -304,8 +328,16 @@ def set_creation_time_linux(filepath, timestamp):
 #     handle.close()
 
 # Set creation times for all downloaded images
+# Set creation times for all downloaded images
 def set_all_creation_times(download_dir):
+    artwork_dir = False
     for root, _, files in os.walk(download_dir):
+        if "Artwork" in root.split(os.sep):
+                if not artwork_dir:
+                    print("Skipping Artwork directory for creation time update.")
+                artwork_dir = True
+                continue
+         
         for fname in files:
             if fname.lower().endswith(".jpg"):
                 dt = extract_datetime_from_filename(fname)
@@ -361,6 +393,7 @@ class SteamDownloaderApp:
         self.appid = tk.StringVar()
         self.processes = tk.StringVar()
         self.firefox_path = tk.StringVar()
+        self.screenshot = tk.BooleanVar(value=True) 
 
         # Set default download directory
         default_download_dir = os.path.join(os.getcwd(), "Download_Screenshot")
@@ -441,6 +474,12 @@ class SteamDownloaderApp:
         ttk.Label(frame, text="End Page:").grid(row=6, column=1, sticky="e", pady=3, padx=(0, 5))
         ttk.Entry(frame, textvariable=self.end_page, width=10).grid(row=6, column=2, sticky="w", pady=3)
 
+        # Screenshot or Artwork
+        type_frame = ttk.Frame(frame)
+        type_frame.grid(row=6, column=2, sticky="w", pady=3)
+        ttk.Radiobutton(type_frame, text="Screenshot", variable=self.screenshot, value=True).pack(side="left", padx=0)
+        ttk.Radiobutton(type_frame, text="Artwork", variable=self.screenshot, value=False).pack(side="left", padx=10)
+
         # Browse button
         button_frame = ttk.Frame(frame)
         button_frame.grid(row=8, column=2, pady=10)
@@ -515,7 +554,7 @@ class SteamDownloaderApp:
                 print("⛔ Download stopped by user.")
                 break
 
-            links = get_screenshot_links(driver, steam_id, page, appid=appid)
+            links = get_screenshot_links(driver, steam_id, page, appid=appid, screenshot=self.screenshot.get())
             if not links:
                 continue
 
@@ -562,10 +601,13 @@ class SteamDownloaderApp:
         print("✅ Creation time update completed.")
 
         for appid in os.listdir(download_dir):
-            app_screenshot_dir = os.path.join(download_dir, appid, "screenshots")
-            app_thumbnail_dir = os.path.join(app_screenshot_dir, "thumbnails")
-            if os.path.isdir(app_screenshot_dir):
-                generate_thumbnails(app_screenshot_dir, app_thumbnail_dir)
+            if appid == "Artwork":
+                print("Skipping thumbnails for Artwork.")
+            else:
+                app_screenshot_dir = os.path.join(download_dir, appid, "screenshots")
+                app_thumbnail_dir = os.path.join(app_screenshot_dir, "thumbnails")
+                if os.path.isdir(app_screenshot_dir):
+                    generate_thumbnails(app_screenshot_dir, app_thumbnail_dir)
         print("✅ Thumbnails generation completed.")
         print("✅ All Done.")
 
