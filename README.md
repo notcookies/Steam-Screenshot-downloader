@@ -2,6 +2,13 @@
 |----------------------------------|--------------------------------|
 | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/notcookies/Steam-Screenshot-downloader)](https://github.com/notcookies/Steam-Screenshot-downloader/releases)<br>[![GitHub All Releases](https://img.shields.io/github/downloads/notcookies/Steam-Screenshot-downloader/total.svg)](https://github.com/notcookies/Steam-Screenshot-downloader/releases) | [![PayPal](https://img.shields.io/badge/PayPal-0070ba?logo=paypal&logoColor=white&style=flat)](https://paypal.me/dongyunboshi)<br>[<img src="assets/Alipay.jpg" alt="Alipay" width="15"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/Alipay.jpg) [<img src="assets/WeChat_Pay.jpg" alt="WeChat" width="15"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/WeChat_Pay.jpg) |
 
+
+
+# Steam Screenshot Downloader
+<img width="130" height="135" alt="image" src="https://github.com/user-attachments/assets/2a63c467-2022-4b7d-a83d-f6ea787ee946" />
+
+<img width="898" height="830" alt="7nsTBBKJpv" src="https://github.com/user-attachments/assets/e257e1e5-347e-42c5-a492-2054216bd824" />
+
 ## Special Thanks to Sponsors 
 Huge thanks to the following supporters! (Listed by date)
 
@@ -22,22 +29,12 @@ Huge thanks to the following supporters! (Listed by date)
 | 7 | ....（Looking forward to your use and feedback.） |
 
 
-# Steam Screenshot Downloader
-
-
-
-![image](https://github.com/user-attachments/assets/1ffbb150-2ded-4ff1-82be-767f9e1a5275)
-
 #  Video base_v2.5
 https://youtu.be/1G6fnU91s2w
-
-#  Video base_v2.3
+### Video base_v2.3
 https://youtu.be/9wv2S5nMiGk
 
 https://www.bilibili.com/video/BV1bE3rzrEjY/
-
-![image](https://github.com/user-attachments/assets/7a8461b4-a56e-4e92-91e0-c9b706edf9a0)
-
 
 # User Guide
 
