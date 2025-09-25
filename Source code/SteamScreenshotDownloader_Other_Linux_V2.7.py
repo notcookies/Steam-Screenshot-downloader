@@ -476,7 +476,7 @@ class SteamDownloaderApp:
 
         # Screenshot or Artwork
         type_frame = ttk.Frame(frame)
-        type_frame.grid(row=6, column=2, sticky="w", pady=3)
+        type_frame.grid(row=7, column=2, sticky="w", pady=3)
         ttk.Radiobutton(type_frame, text="Screenshot", variable=self.screenshot, value=True).pack(side="left", padx=0)
         ttk.Radiobutton(type_frame, text="Artwork", variable=self.screenshot, value=False).pack(side="left", padx=10)
 
