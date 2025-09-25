@@ -129,7 +129,6 @@ def get_appid_filename_from_cd(cd_header: str) -> tuple[str, str]:
     # Handle Artwork filenames
     if idx == -1:
         appid = "Artwork"
-
         # Extract filename
         idx = full_name.find("_")
         i = idx - 1
@@ -139,12 +138,13 @@ def get_appid_filename_from_cd(cd_header: str) -> tuple[str, str]:
             i -= 1
         filename = ''.join(reversed(fname_chars))  
         # Append file extension
-        ext_match = re.search(r'\.(jpg|jpeg|png|gif|webp)$', full_name, re.I)
+        ext_match = re.search(r'\.(jpg|jpeg|png|gif|webp)', full_name, re.I)
         if ext_match:
             filename += ext_match.group(0)
+            print(f"Detected AppID: {appid}, Filename: {filename}")
         else:
             filename += ".jpg"
-
+            print(f"Detected AppID: {appid}, Filename: {filename}")
         return appid, filename
     
     # Handle Screenshot filenames
@@ -165,7 +165,7 @@ def get_appid_filename_from_cd(cd_header: str) -> tuple[str, str]:
     filename = ''.join(fname_chars)
 
     # Append file extension
-    ext_match = re.search(r'\.(jpg|jpeg|png|gif|webp)$', full_name, re.I)
+    ext_match = re.search(r'\.(jpg|jpeg|png|gif|webp)', full_name, re.I)
     if ext_match:
         filename += ext_match.group(0)
     else:
