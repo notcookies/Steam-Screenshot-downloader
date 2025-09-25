@@ -141,10 +141,8 @@ def get_appid_filename_from_cd(cd_header: str) -> tuple[str, str]:
         ext_match = re.search(r'\.(jpg|jpeg|png|gif|webp)', full_name, re.I)
         if ext_match:
             filename += ext_match.group(0)
-            print(f"Detected AppID: {appid}, Filename: {filename}")
         else:
             filename += ".jpg"
-            print(f"Detected AppID: {appid}, Filename: {filename}")
         return appid, filename
     
     # Handle Screenshot filenames
