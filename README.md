@@ -17,27 +17,6 @@ For Linux(Ubuntu)
 
 <img width="1920" height="1080" alt="w3AoGRo9TA" src="https://github.com/user-attachments/assets/536abaa1-bdbf-413e-855a-abb2e2832774" />
 
-
-## Special Thanks to Sponsors 
-Huge thanks to the following supporters! (Listed by date)
-
-| Name   | Message | Date  |
-|-------------|----------------|-------------|
-| **Myself**   | Keep it up! ☕  | 2025-07-11  |
-
-## User Reviews
-
-| # | User Review |
-|--|-------------|
-| 1 | Just used the updated version you provided. And everything works Fantastic!<br>It was able to download all of the screenshots.<br>The way you explained everything in detail was nice.<br>Thank you for looking into it man!<br>**Amazing tool** |
-| 2 | Yea man. Thank you so much<br>This makes saving screenshots way easier.<br>Compared to the one made by *ScienceDiscoverer*, this one is **waaay faster** thanks to multithreading.<br>Works perfectly 👍 |
-| 3 | Looks fixed, tried with 2 different accounts and worked, thanks! |
-| 4 | 好的我试一下<br>可以了！<br>路由模式可以下载了！<br>**up真的厉害**，这截图工具解决了大问题，手动一个一个保存下来估计要到明年啦<br>已点亮收藏 ⭐ |
-| 5 | I was searching for hours and hours to find a good screenshot downloader and I randomly found this video in YouTube.<br>This one is by far **the best one**, keep up the good work, I managed to download **12k screenshots**.<br>The guide was clear and easy to understand. Thank you! |
-| 6 | I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded. |
-| 7 | ....（Looking forward to your use and feedback.） |
-
-
 #  Video base_v2.5
 https://youtu.be/1G6fnU91s2w
 ### Video base_v2.3
@@ -105,6 +84,27 @@ This software uses the latter format by default, so you may need to customize yo
 
 This project is licensed under the GNU General Public License v3.0.  
 See the [LICENSE](./LICENSE) file for details.
+
+
+
+## Special Thanks to Sponsors 
+Huge thanks to the following supporters! (Listed by date)
+
+| Name   | Message | Date  |
+|-------------|----------------|-------------|
+| **Myself**   | Keep it up! ☕  | 2025-07-11  |
+
+## User Reviews
+
+| # | User Review |
+|--|-------------|
+| 1 | Just used the updated version you provided. And everything works Fantastic!<br>It was able to download all of the screenshots.<br>The way you explained everything in detail was nice.<br>Thank you for looking into it man!<br>**Amazing tool** |
+| 2 | Yea man. Thank you so much<br>This makes saving screenshots way easier.<br>Compared to the one made by *ScienceDiscoverer*, this one is **waaay faster** thanks to multithreading.<br>Works perfectly 👍 |
+| 3 | Looks fixed, tried with 2 different accounts and worked, thanks! |
+| 4 | 好的我试一下<br>可以了！<br>路由模式可以下载了！<br>**up真的厉害**，这截图工具解决了大问题，手动一个一个保存下来估计要到明年啦<br>已点亮收藏 ⭐ |
+| 5 | I was searching for hours and hours to find a good screenshot downloader and I randomly found this video in YouTube.<br>This one is by far **the best one**, keep up the good work, I managed to download **12k screenshots**.<br>The guide was clear and easy to understand. Thank you! |
+| 6 | I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded. |
+| 7 | ....（Looking forward to your use and feedback.） |
 
 # 快速指导：
 1.解压release，打开chrome文件夹内的chrome.exe，登陆steam，确认一下能否打开自己的截图详情页，例如：https://steamcommunity.com/sharedfiles/filedetails/?id=3353482389
