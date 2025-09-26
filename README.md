@@ -9,6 +9,15 @@
 
 <img width="898" height="830" alt="7nsTBBKJpv" src="https://github.com/user-attachments/assets/e257e1e5-347e-42c5-a492-2054216bd824" />
 
+For SteamOS
+
+<img width="1280" height="800" alt="Image" src="https://github.com/user-attachments/assets/66869966-237e-463b-b9b2-ab5506b95199" />
+
+For Linux(Ubuntu)
+
+<img width="1920" height="1080" alt="w3AoGRo9TA" src="https://github.com/user-attachments/assets/536abaa1-bdbf-413e-855a-abb2e2832774" />
+
+
 ## Special Thanks to Sponsors 
 Huge thanks to the following supporters! (Listed by date)
 
