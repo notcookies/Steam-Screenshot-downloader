@@ -120,23 +120,30 @@ def fetch_img_urls_concurrently_requests(links, cookies, page, processes):
         for i, future in enumerate(as_completed(futures)):
             try:
                 result = future.result(timeout=15)
+                link = futures[future]
                 if result:
-                    img_urls.append(result)
+                    img_urls.append((link, result))
             except Exception as e:
                 print(f"Failed to fetch link: {futures[future]} Error: {e}")
     print(f"[Page {page}] ✅ Retrieved {len(img_urls)} original image links.\n")
     return img_urls
 
-def get_appid_filename_from_cd(cd_header: str) -> tuple[str, str]:
+def get_appid_filename_from_cd(page_url, link,cd_header: str) -> tuple[str, str]:
 
     if not cd_header:
-        raise ValueError("No Content-Disposition header found!")
+        print("No Content-Disposition header found!")
+        print(f"Error_link\n{link}\nFull_url\n{page_url}")
+        cd_header = f"= 0000_screenshots_2000-01-01_{random.randint(1000, 9999)}.jpg"
+        print(f"Renaming it {cd_header}")
 
-    match = re.search(r"=[^']*''(.+)", cd_header)
+    match = re.search(r'=\s*"?([^";]+)"?', cd_header)
+
     if not match:
+        print("Error field match filename Content-Disposition!")
         raise ValueError("No filename* found in Content-Disposition!")
-
+    
     full_name = match.group(1)
+
     idx = full_name.find("_screenshots_")
     # Handle Artwork filenames
     if idx == -1:
@@ -169,7 +176,7 @@ def get_appid_filename_from_cd(cd_header: str) -> tuple[str, str]:
     # Extract filename
     j = idx + len("_screenshots_")
     fname_chars = []
-    while j < len(full_name) and (full_name[j].isdigit() or full_name[j] == '_'):
+    while j < len(full_name) and (full_name[j].isdigit() or full_name[j] in '_'or full_name[j] in '-' or full_name[j].isalnum()):
         fname_chars.append(full_name[j])
         j += 1
     filename = ''.join(fname_chars)
@@ -181,10 +188,10 @@ def get_appid_filename_from_cd(cd_header: str) -> tuple[str, str]:
     else:
         filename += ".jpg"
 
-    return appid, filename
+    return appid, filename, cd_header
 
 # Download image
-def download_img(page, link, save_dir, stop_flag, idx):
+def download_img(page, page_url,link, save_dir, stop_flag, idx):
     if stop_flag:
         return None
 
@@ -195,7 +202,8 @@ def download_img(page, link, save_dir, stop_flag, idx):
             r.raise_for_status()
 
             cd_header = r.headers.get('Content-Disposition', '')
-            appid, new_fname = get_appid_filename_from_cd(cd_header)
+
+            appid, new_fname, cd_header = get_appid_filename_from_cd(page_url, link, cd_header)
 
             if cd_header:
                 folder = os.path.join(save_dir, appid, "screenshots")
@@ -218,15 +226,18 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, 
         retry_history = {}
 
     if link_to_idx is None:
-        link_to_idx = {link: i for i, link in enumerate(img_links)}
+        link_to_idx = {img_url: i for i, (page_url, img_url) in enumerate(img_links)}
+
 
     error_links = []
     success_count = 0
     lock = threading.Lock()
 
-    def wrapped_download(link):
-        result = download_img(page, link, save_dir, stop_flag, idx=None)
-        return link, result
+    def wrapped_download(link_tuple):
+        page_url, img_url = link_tuple
+        result = download_img(page, page_url, img_url, save_dir, stop_flag, idx=None)
+        return page_url, img_url, result
+
 
     with ThreadPoolExecutor(max_workers = processes) as executor:
         future_to_url = {
@@ -235,18 +246,18 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, 
         }
 
         for future in as_completed(future_to_url):
-            link, result = future.result()
-            idx = link_to_idx.get(link, "?")
+            page_url, img_url, result = future.result()
+            idx = link_to_idx.get(img_url, "?")
             if result is None:
                 with lock:
                     success_count += 1
                     print(f"[Page {page}] Downloaded {idx+1} of {len(link_to_idx)} screenshots...")
             else:
-                retry_history[link] = retry_history.get(link, 0) + 1
-                if retry_history[link] < max_retries:
-                    error_links.append(link)
+                retry_history[img_url] = retry_history.get(img_url, 0) + 1
+                if retry_history[img_url] < max_retries:
+                    error_links.append((page_url, img_url))
                 else:
-                    print(f"[image {idx+1}]\n{link}")
+                    print(f"[image {idx+1}]\n{img_url}\n[Full url]\n{page_url}")
 
     return error_links, retry_history, success_count
 
@@ -254,6 +265,13 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, 
 def extract_datetime_from_filename(fname):
     # 1.new format(after 2016): 20250403215812_1.jpg
     match = re.match(r'^(\d{14})_\d+', fname)
+    if match:
+        try:
+            return datetime.strptime(match.group(1), "%Y%m%d%H%M%S")
+        except:
+            pass
+    # 3.new format(after 2016): 20250403215812.jpg
+    match = re.match(r'^(\d{14})', fname)
     if match:
         try:
             return datetime.strptime(match.group(1), "%Y%m%d%H%M%S")
@@ -506,7 +524,8 @@ class SteamDownloaderApp:
             max_retries = 4
             attempt = 0
 
-            link_to_idx = {link: i for i, link in enumerate(img_links)}
+            link_to_idx = {img_url: i for i, (page_url, img_url) in enumerate(img_links)}
+
 
             while retry_links and attempt < max_retries:
                 attempt += 1
