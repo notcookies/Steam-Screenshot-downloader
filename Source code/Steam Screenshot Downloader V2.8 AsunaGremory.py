@@ -137,13 +137,11 @@ def get_appid_filename_from_cd(page_url, link,cd_header: str) -> tuple[str, str]
         print(f"Renaming it {cd_header}")
 
     match = re.search(r'=\s*"?([^";]+)"?', cd_header)
-
     if not match:
         print("Error field match filename Content-Disposition!")
         raise ValueError("No filename* found in Content-Disposition!")
     
     full_name = match.group(1)
-
     idx = full_name.find("_screenshots_")
     # Handle Artwork filenames
     if idx == -1:
@@ -155,14 +153,14 @@ def get_appid_filename_from_cd(page_url, link,cd_header: str) -> tuple[str, str]
         while i >= 0 and (full_name[i].isdigit() or full_name[i] == '_'):
             fname_chars.append(full_name[i])
             i -= 1
-        filename = ''.join(reversed(fname_chars))  
+        filename = ''.join(reversed(fname_chars))
         # Append file extension
         ext_match = re.search(r'\.(jpg|jpeg|png|gif|webp)', full_name, re.I)
         if ext_match:
             filename += ext_match.group(0)
         else:
             filename += ".jpg"
-        return appid, filename
+        return appid, filename, cd_header
     
     # Handle Screenshot filenames
     # Extract appid
@@ -205,17 +203,13 @@ def download_img(page, page_url,link, save_dir, stop_flag, idx):
 
             appid, new_fname, cd_header = get_appid_filename_from_cd(page_url, link, cd_header)
 
-            if cd_header:
-                folder = os.path.join(save_dir, appid, "screenshots")
-                os.makedirs(folder, exist_ok=True)
-                path = os.path.join(folder, new_fname)
-                with open(path, "wb") as f:
-                    for chunk in r.iter_content(1024):
-                        f.write(chunk)
-                    return None
-            else:
-                print(f"[image {idx+1}]\n{link}\n❌ No Content-Disposition header, skipped.")
-                return link
+            folder = os.path.join(save_dir, appid, "screenshots")
+            os.makedirs(folder, exist_ok=True)
+            path = os.path.join(folder, new_fname)
+            with open(path, "wb") as f:
+                for chunk in r.iter_content(1024):
+                    f.write(chunk)
+                return None
         except:
             if attempt == 2:
                 return link
