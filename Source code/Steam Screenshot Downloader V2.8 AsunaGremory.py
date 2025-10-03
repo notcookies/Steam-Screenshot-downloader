@@ -26,6 +26,15 @@ CHROME_PATH = os.path.join(os.getcwd(), "chrome", "chrome.exe")
 CHROMEDRIVER_PATH = os.path.join(os.getcwd(), "chrome", "chromedriver.exe")
 PROFILE_DIR = "Default"
 
+#No Content-Disposition
+CONTENT_TYPE_TO_EXT = {
+    'image/jpeg': '.jpg',
+    'image/jpg': '.jpg',
+    'image/png': '.png',
+    'image/gif': '.gif',
+    'image/webp': '.webp',
+}
+
 # Redirect stdout to Text widget
 class TextRedirector:
     def __init__(self, widget):
@@ -104,7 +113,9 @@ def get_img_url_from_html(link, cookies):
         soup = BeautifulSoup(r.text, "html.parser")
         tag = soup.select_one('a[href*="//images.steamusercontent.com/ugc/"]')
         if tag:
-            return urlunparse(urlparse(tag['href'])._replace(query=''))
+            link = urlunparse(urlparse(tag['href'])._replace(query=''))
+            link_full = urlunparse(urlparse(tag['href']))
+            return link, link_full
     except Exception as e:
         print(f"Error fetching {link}: {e}")
     return None
@@ -122,19 +133,14 @@ def fetch_img_urls_concurrently_requests(links, cookies, page, processes):
                 result = future.result(timeout=15)
                 link = futures[future]
                 if result:
-                    img_urls.append((link, result))
+                    image_url, image_url_query = result
+                    img_urls.append((link, image_url, image_url_query))
             except Exception as e:
                 print(f"Failed to fetch link: {futures[future]} Error: {e}")
     print(f"[Page {page}] ✅ Retrieved {len(img_urls)} original image links.\n")
     return img_urls
 
 def get_appid_filename_from_cd(page_url, link,cd_header: str) -> tuple[str, str]:
-
-    if not cd_header:
-        print("No Content-Disposition header found!")
-        print(f"Error_link\n{link}\nFull_url\n{page_url}")
-        cd_header = f"= 0000_screenshots_2000-01-01_{random.randint(1000, 9999)}.jpg"
-        print(f"Renaming it {cd_header}")
 
     match = re.search(r'=\s*"?([^";]+)"?', cd_header)
     if not match:
@@ -160,7 +166,7 @@ def get_appid_filename_from_cd(page_url, link,cd_header: str) -> tuple[str, str]
             filename += ext_match.group(0)
         else:
             filename += ".jpg"
-        return appid, filename, cd_header
+        return appid, filename
     
     # Handle Screenshot filenames
     # Extract appid
@@ -186,22 +192,36 @@ def get_appid_filename_from_cd(page_url, link,cd_header: str) -> tuple[str, str]
     else:
         filename += ".jpg"
 
-    return appid, filename, cd_header
+    return appid, filename
 
 # Download image
-def download_img(page, page_url,link, save_dir, stop_flag, idx):
+def download_img(page, link, img_url, image_url_query, save_dir, stop_flag, idx):
+
     if stop_flag:
         return None
 
     for attempt in range(3):
         try:
             time.sleep(random.uniform(0.2, 0.5))
-            r = requests.get(link,stream=True, timeout=5)
+            r = requests.get(img_url,stream=True, timeout=5)
             r.raise_for_status()
 
             cd_header = r.headers.get('Content-Disposition', '')
+            ct_header = r.headers.get('Content-Type', '')
 
-            appid, new_fname, cd_header = get_appid_filename_from_cd(page_url, link, cd_header)
+            if not cd_header:
+
+                r = requests.get(image_url_query, stream=True, timeout=5)
+                r.raise_for_status()
+                ct_header = r.headers.get('Content-Type', '')
+
+                ext = CONTENT_TYPE_TO_EXT.get(ct_header.lower().split(";")[0].strip(), ".jpg")
+                
+                cd_header = f"= 0000_screenshots_2000-01-01_{random.randint(1000, 9999)}{ext}"
+
+                print(f"No Content-Disposition header found!\nError link:\n{img_url}\nFull url:\n{link}\nRenaming it {cd_header}")
+
+            appid, new_fname = get_appid_filename_from_cd(link, img_url,cd_header)
 
             folder = os.path.join(save_dir, appid, "screenshots")
             os.makedirs(folder, exist_ok=True)
@@ -220,7 +240,7 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, 
         retry_history = {}
 
     if link_to_idx is None:
-        link_to_idx = {img_url: i for i, (page_url, img_url) in enumerate(img_links)}
+        link_to_idx = {img_url: i for i, (link, img_url,image_url_query) in enumerate(img_links)}
 
 
     error_links = []
@@ -228,9 +248,9 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, 
     lock = threading.Lock()
 
     def wrapped_download(link_tuple):
-        page_url, img_url = link_tuple
-        result = download_img(page, page_url, img_url, save_dir, stop_flag, idx=None)
-        return page_url, img_url, result
+        link, img_url,image_url_query = link_tuple
+        result = download_img(page, link, img_url, image_url_query, save_dir, stop_flag, idx=None)
+        return link, img_url,image_url_query, result
 
 
     with ThreadPoolExecutor(max_workers = processes) as executor:
@@ -240,7 +260,7 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, 
         }
 
         for future in as_completed(future_to_url):
-            page_url, img_url, result = future.result()
+            link, img_url,image_url_query, result = future.result()
             idx = link_to_idx.get(img_url, "?")
             if result is None:
                 with lock:
@@ -249,9 +269,9 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, 
             else:
                 retry_history[img_url] = retry_history.get(img_url, 0) + 1
                 if retry_history[img_url] < max_retries:
-                    error_links.append((page_url, img_url))
+                    error_links.append((link, img_url,image_url_query))
                 else:
-                    print(f"[image {idx+1}]\n{img_url}\n[Full url]\n{page_url}")
+                    print(f"[image {idx+1}]\n{img_url}\n[Full url]\n{link}")
 
     return error_links, retry_history, success_count
 
@@ -518,8 +538,7 @@ class SteamDownloaderApp:
             max_retries = 4
             attempt = 0
 
-            link_to_idx = {img_url: i for i, (page_url, img_url) in enumerate(img_links)}
-
+            link_to_idx = {img_url: i for i, (link, img_url,image_url_query) in enumerate(img_links)}
 
             while retry_links and attempt < max_retries:
                 attempt += 1
