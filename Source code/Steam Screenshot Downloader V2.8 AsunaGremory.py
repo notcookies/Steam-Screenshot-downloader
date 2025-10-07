@@ -15,6 +15,7 @@ from PIL import Image
 from datetime import datetime
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from urllib.parse import unquote
 from tkinter import ttk, filedialog
 from urllib.parse import urlparse, urlunparse
 from selenium.webdriver.chrome.options import Options
@@ -140,32 +141,42 @@ def fetch_img_urls_concurrently_requests(links, cookies, page, processes):
     print(f"[Page {page}] ✅ Retrieved {len(img_urls)} original image links.\n")
     return img_urls
 
-def get_appid_filename_from_cd(page_url, link,cd_header: str) -> tuple[str, str]:
+def get_appid_filename_from_cd(debug, page_url, link, cd_header: str) -> tuple[str, str]:
 
     match = re.search(r'=\s*"?([^";]+)"?', cd_header)
+    if debug:
+        print(f"debug_Content-Disposition:{match}\n{link}\n{page_url}")
     if not match:
         print("Error field match filename Content-Disposition!")
         raise ValueError("No filename* found in Content-Disposition!")
     
     full_name = match.group(1)
+    if debug:
+        print(f"debug_match_Content-Disposition:{full_name} from{match}")
     idx = full_name.find("_screenshots_")
     # Handle Artwork filenames
     if idx == -1:
         appid = "Artwork"
-        # Extract filename
-        idx = full_name.find("_")
-        i = idx - 1
-        fname_chars = []
-        while i >= 0 and (full_name[i].isdigit() or full_name[i] == '_'):
-            fname_chars.append(full_name[i])
-            i -= 1
-        filename = ''.join(reversed(fname_chars))
-        # Append file extension
-        ext_match = re.search(r'\.(jpg|jpeg|png|gif|webp)', full_name, re.I)
-        if ext_match:
-            filename += ext_match.group(0)
-        else:
-            filename += ".jpg"
+        # # Extract filename
+        # idx = full_name.find("_")
+        # i = idx - 1
+        # fname_chars = []
+        # while i >= 0 and (full_name[i].isdigit() or full_name[i] == '_'):
+        #     fname_chars.append(full_name[i])
+        #     i -= 1
+        # filename = ''.join(reversed(fname_chars))
+        # # Append file extension
+        # ext_match = re.search(r'\.(jpg|jpeg|png|gif|webp)', full_name, re.I)
+        # if ext_match:
+        #     filename += ext_match.group(0)
+        # else:
+        #     filename += ".jpg"
+        if full_name.lower().startswith("utf-8''"):
+                full_name = full_name[7:]
+        filename = unquote(full_name)
+
+        if debug:
+            print(f"Artwork:\ndebug_match_Artwork_filename:{filename}\ndebug_match_Artwork_ext:{ext_match}\ndebug_match_Artwork_info:\nAppid:{appid}  Filename:{filename}")
         return appid, filename
     
     # Handle Screenshot filenames
@@ -191,11 +202,12 @@ def get_appid_filename_from_cd(page_url, link,cd_header: str) -> tuple[str, str]
         filename += ext_match.group(0)
     else:
         filename += ".jpg"
-
+    if debug:
+            print(f"Screenshots:\ndebug_match_filename:{filename}\ndebug_match_ext:{ext_match}\ndebug_match_info:\nAppid:{appid}  Filename:{filename}")
     return appid, filename
 
 # Download image
-def download_img(page, link, img_url, image_url_query, save_dir, stop_flag, idx):
+def download_img(page, link, img_url, image_url_query, save_dir, stop_flag, debug, idx):
 
     if stop_flag:
         return None
@@ -221,7 +233,7 @@ def download_img(page, link, img_url, image_url_query, save_dir, stop_flag, idx)
 
                 print(f"No Content-Disposition header found!\nError link:\n{img_url}\nFull url:\n{link}\nRenaming it {cd_header}")
 
-            appid, new_fname = get_appid_filename_from_cd(link, img_url,cd_header)
+            appid, new_fname = get_appid_filename_from_cd(debug, link, img_url,cd_header)
 
             folder = os.path.join(save_dir, appid, "screenshots")
             os.makedirs(folder, exist_ok=True)
@@ -235,7 +247,7 @@ def download_img(page, link, img_url, image_url_query, save_dir, stop_flag, idx)
                 return link
     return None
 
-def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, retry_history=None, link_to_idx=None, processes =8):
+def threaded_download_imgs(img_links, page, save_dir, stop_flag, debug, max_retries=5, retry_history=None, link_to_idx=None, processes =8):
     if retry_history is None:
         retry_history = {}
 
@@ -249,7 +261,7 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, max_retries=5, 
 
     def wrapped_download(link_tuple):
         link, img_url,image_url_query = link_tuple
-        result = download_img(page, link, img_url, image_url_query, save_dir, stop_flag, idx=None)
+        result = download_img(page, link, img_url, image_url_query, save_dir, stop_flag, debug, idx=None)
         return link, img_url,image_url_query, result
 
 
@@ -362,7 +374,7 @@ class SteamDownloaderApp:
     def __init__(self, root):
         self.stop_flag = False
         self.root = root
-        root.title("Steam Screenshot Downloader V2.8")
+        root.title("Steam Screenshot Downloader V2.8.2")
         root.iconbitmap(resource_path("Steam&Cookies.ico"))
         root.geometry("900x600")
         root.resizable(True, True)
@@ -382,6 +394,7 @@ class SteamDownloaderApp:
         self.screenshot = tk.BooleanVar(value=True) 
         self.favorite = tk.BooleanVar(value=False)
         self.custom_url = tk.BooleanVar(value=True)
+        self.debug = tk.BooleanVar(value=False)
 
         # Set default download directory
         default_download_dir = os.path.join(os.getcwd(), "Download_Screenshot")
@@ -449,6 +462,8 @@ class SteamDownloaderApp:
         ttk.Frame(type_frame, width=150).pack(side="left")
         ttk.Radiobutton(type_frame, text="My Files", variable=self.favorite, value=False).pack(side="left", padx=0)
         ttk.Radiobutton(type_frame, text="My Favorite", variable=self.favorite, value=True).pack(side="left", padx=10)
+
+        ttk.Checkbutton(frame, text="Debug Mode", variable=self.debug).grid(row=3, column=2, sticky="w", padx=(460, 0))
 
         # Browse button
         button_frame = ttk.Frame(frame)
@@ -550,7 +565,7 @@ class SteamDownloaderApp:
                     print('Failed to download after max retries:')
                     
                 retry_links, retry_history, new_success = threaded_download_imgs(
-                    retry_links, page, download_dir, self.stop_flag, max_retries, retry_history,
+                    retry_links, page, download_dir, self.stop_flag, self.debug.get(), max_retries, retry_history,
                     link_to_idx=link_to_idx, processes=processes
                 )
                 successful_downloads += new_success
