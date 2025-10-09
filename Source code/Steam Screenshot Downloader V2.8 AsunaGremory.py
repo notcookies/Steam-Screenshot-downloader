@@ -3,6 +3,7 @@ import re
 import sys
 import time
 import random
+import hashlib
 import win32con
 import requests
 import threading
@@ -141,6 +142,10 @@ def fetch_img_urls_concurrently_requests(links, cookies, page, processes):
     print(f"[Page {page}] ✅ Retrieved {len(img_urls)} original image links.\n")
     return img_urls
 
+def gen_img_id(url: str, length: int = 10) -> str:
+    md5 = hashlib.md5(url.encode('utf-8')).hexdigest()
+    return md5[:length]
+
 def get_appid_filename_from_cd(debug, page_url, link, cd_header: str) -> tuple[str, str]:
 
     match = re.search(r'=\s*"?([^";]+)"?', cd_header)
@@ -188,6 +193,9 @@ def get_appid_filename_from_cd(debug, page_url, link, cd_header: str) -> tuple[s
         i -= 1
     appid = ''.join(reversed(app_chars))
     
+    if appid == "0000":
+        appid = "Error"
+
     # Extract filename
     j = idx + len("_screenshots_")
     fname_chars = []
@@ -228,8 +236,10 @@ def download_img(page, link, img_url, image_url_query, save_dir, stop_flag, debu
                 ct_header = r.headers.get('Content-Type', '')
 
                 ext = CONTENT_TYPE_TO_EXT.get(ct_header.lower().split(";")[0].strip(), ".jpg")
-                
-                cd_header = f"= 0000_screenshots_2000-01-01_{random.randint(1000, 9999)}{ext}"
+
+                unique_id = gen_img_id(img_url)
+
+                cd_header = f"= 0000_screenshots_2000-01-01_{unique_id}{ext}"
 
                 print(f"No Content-Disposition header found!\nError link:\n{img_url}\nFull url:\n{link}\nRenaming it {cd_header}")
 
@@ -330,13 +340,20 @@ def set_creation_time(filepath, timestamp):
 # Set creation times for all downloaded images
 def set_all_creation_times(download_dir):
     artwork_dir = False
+    error_dir = False
     for root, _, files in os.walk(download_dir):
         if "Artwork" in root.split(os.sep):
                 if not artwork_dir:
                     print("Skipping Artwork directory for creation time update.")
                 artwork_dir = True
                 continue
-          
+        
+        # if "Error" in root.split(os.sep):
+        #         if not error_dir:
+        #             print("Skipping Error directory for creation time update.")
+        #         error_dir = True
+        #         continue        
+
         for fname in files:
             if fname.lower().endswith(".jpg"):
                 dt = extract_datetime_from_filename(fname)
@@ -374,7 +391,7 @@ class SteamDownloaderApp:
     def __init__(self, root):
         self.stop_flag = False
         self.root = root
-        root.title("Steam Screenshot Downloader V2.8.2")
+        root.title("Steam Screenshot Downloader V2.8.3")
         root.iconbitmap(resource_path("Steam&Cookies.ico"))
         root.geometry("900x600")
         root.resizable(True, True)
