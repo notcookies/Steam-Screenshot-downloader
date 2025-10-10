@@ -1,3 +1,0 @@
-This code relies on Chrome for Testing and ChromeDriver to render and parse Steam's JavaScript-generated screenshot URLs,and to avoid manually entering Steam cookies.
-If you don't trust the Chrome version I bundled in the Release, you can download it yourself here:
-https://googlechromelabs.github.io/chrome-for-testing/
