@@ -479,19 +479,9 @@ class SteamDownloaderApp:
         self.stop_flag = False
         self.root = root
         root.title("Steam Screenshot Downloader V2.8.4")
-
-        # Menu bar
-        menubar = tk.Menu(root)
-        manual_menu = tk.Menu(menubar, tearoff=0)
-        manual_menu.add_command(label="Manual Download", command=self.manual_download_window)
-        menubar.add_cascade(label="Manual", menu=manual_menu)
-        root.config(menu=menubar)
-
         root.iconbitmap(resource_path("Steam&Cookies.ico"))
         root.geometry("900x600")
         root.resizable(True, True)
-
-        
 
         style = ttk.Style()
         style.configure("TLabel", font=("Segoe UI", 10))
@@ -858,75 +848,6 @@ class SteamDownloaderApp:
                     generate_thumbnails(app_screenshot_dir, app_thumbnail_dir)
         print("✅ Thumbnails generation completed.")
         print("✅ All Done.")
-
-    def manual_download_window(self):
-        win = tk.Toplevel(self.root)
-        win.title("Manual Screenshot Download")
-        win.geometry("600x300")
-
-        win.rowconfigure(1, weight=1)
-        win.columnconfigure(0, weight=1)
-
-        tk.Label(win, text="Enter one or more Screenshot Links (one per line):").grid(row=0, column=0, pady=5)
-
-        text_box = tk.Text(win, wrap="word", font=("Consolas", 10))
-        text_box.grid(row=1, column=0, sticky="nsew", padx=10, pady=5)
-
-
-        ttk.Button(win, text="Download",
-                command=lambda: self.manual_download(text_box.get("1.0", tk.END))
-                ).grid(row=2, column=0, pady=10)
-
-
-    def manual_download(self, links_text):
-
-        links = [l.strip() for l in links_text.strip().splitlines() if l.strip()]
-
-        if not links:
-            print("❌ Please enter at least one valid screenshot link.")
-            return
-
-        save_dir = os.path.join(self.download_dir.get(), "Manual")
-        if not os.path.exists(save_dir):
-            os.makedirs(save_dir, exist_ok=True)
-
-        print(f"🔗 Manual mode: downloading {len(links)} screenshot(s)...")
-
-        driver = ChromiumPage()
-
-        driver.get("https://steamcommunity.com/")
-
-        cookies = extract_steam_cookies_from_driver(driver)
-        # try get cookies
-        if cookies is None:
-            print("Extracting Steam cookies from Chrome session...")
-            cookies = extract_steam_cookies_from_driver(driver, retries=3, delay=2)
-            if not all(k in cookies for k in ["steamLoginSecure", "sessionid"]):
-                print("❌ Missing required cookies from Chrome session.")
-                print("Please ensure you\'re logged into Steam in Chrome.")
-                print("Chrome will Close in 5 minutes.....")
-                time.sleep(300)
-                driver.quit()
-                return            
-
-        for idx, link in enumerate(links):
-            print(f"({idx+1}/{len(links)}) Fetching image link from {link} ...")
-            result = get_img_url_from_html(link, cookies)
-            if not result:
-                print(f"❌ Failed to fetch image URL for {link}")
-                continue
-
-            img_url, image_url_query = result
-            page = 0
-            debug = self.debug.get()
-            stop_flag = self.stop_flag
-
-            download_img(page, link, img_url, image_url_query, save_dir, stop_flag, debug, idx)
-
-        driver.quit()
-
-        print("✅ All manual downloads completed.\n")
-
 
 # Run GUI
 if __name__ == "__main__":
