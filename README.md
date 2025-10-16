@@ -7,7 +7,8 @@
 # Steam Screenshot Downloader
 <img width="130" height="135" alt="image" src="https://github.com/user-attachments/assets/2a63c467-2022-4b7d-a83d-f6ea787ee946" />
 
-<img width="898" height="830" alt="7nsTBBKJpv" src="https://github.com/user-attachments/assets/e257e1e5-347e-42c5-a492-2054216bd824" />
+<img width="1852" height="1248" alt="image" src="https://github.com/user-attachments/assets/faccba91-3946-4bd1-9fa5-c79eb3b51cd4" />
+
 
 For SteamOS
 
