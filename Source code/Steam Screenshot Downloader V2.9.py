@@ -143,10 +143,10 @@ def fetch_img_urls_concurrently_requests(indexed_links, cookies, page, processes
         if success_count == total_links:
 
             # current sort by original index
-            results.sort(key=lambda x: x[0])  
-            img_links = [(link, img_url, image_url_query) for index, link, img_url, image_url_query in results]           
-            print(f"[Page {page}] ✅ Retrieved {len(img_links)} original image links.\n")
-            return img_links, [index for index, _, _, _ in results]
+            # results.sort(key=lambda x: x[0])  
+            # img_links = [(link, img_url, image_url_query) for index, link, img_url, image_url_query in results]           
+            print(f"[Page {page}] ✅ Retrieved {len(results)} original image links.\n")
+            return results
         else:
             missing = total_links - success_count
             print(f"[Page {page}] Missing {missing} links, retrying...")
@@ -154,12 +154,11 @@ def fetch_img_urls_concurrently_requests(indexed_links, cookies, page, processes
                 time.sleep(2)
             else:
                 print(f"[Page {page}] ❌ Final attempt failed, using {success_count} links.")
-                results.sort(key=lambda x: x[0]) 
-                img_links = [(link, img_url, image_url_query) for index, link, img_url, image_url_query in results]           
-                print(f"[Page {page}] ✅ Retrieved {len(img_links)} original image links.\n")
-                return img_links, [index for index, _, _, _ in results]
+                # results.sort(key=lambda x: x[0]) 
+                # img_links = [(link, img_url, image_url_query) for index, link, img_url, image_url_query in results]           
+                print(f"[Page {page}] ✅ Retrieved {len(results)} original image links.\n")
+                return results
             
-
 
 def gen_img_id(url: str, length: int = 10) -> str:
     md5 = hashlib.md5(url.encode('utf-8')).hexdigest()
@@ -245,7 +244,7 @@ def download_img(page, link, img_url, image_url_query, save_dir, stop_flag, debu
     if stop_flag:
         img_link_success = False
         return {
-            'Page': page, 'Index': idx if idx is not None else '?', 'Screenshot Link': link, 'Image Link': img_url,
+            'Page': page, 'Index': idx if idx is not None else '?', 'Screenshot Link': link, 'Image Link': img_url,'Img Link Query': image_url_query,
             'Content Disposition': '', 'Content Type': '', 'File Name': '', 'App ID': '',
             'Missing Content Disposition': False, 'Same Content Disposition': False, 'Same File Name': False, 'File Written': False, 'Image Link Success': False
         }
@@ -295,6 +294,7 @@ def download_img(page, link, img_url, image_url_query, save_dir, stop_flag, debu
                 'Index': idx if idx is not None else '?',
                 'Screenshot Link': link,
                 'Image Link': img_url,
+                'Img Link Query': image_url_query,
                 'Content Disposition': cd_header,
                 'Content Type': ct_header,
                 'File Name': new_fname,
@@ -313,7 +313,7 @@ def download_img(page, link, img_url, image_url_query, save_dir, stop_flag, debu
                 img_link_success = False
                 print(f"Download failed for {img_url}: {e}")
                 return {
-                    'Page': page, 'Index': idx if idx is not None else '?', 'Screenshot Link': link, 'Image Link': img_url,
+                    'Page': page, 'Index': idx if idx is not None else '?', 'Screenshot Link': link, 'Image Link': img_url,'Img Link Query': image_url_query,
                     'Content Disposition': '', 'Content Type': '', 'File Name': '', 'App ID': '',
                     'Missing Content Disposition': missing_cd, 'Same Content Disposition': False, 'Same File Name': False, 'File Written': False, 'Image Link Success': False
                 }
@@ -335,7 +335,7 @@ def check_same_fname_per_app(existing_fnames, app_id, fname):
 
 # Threaded download images with tracking
 def threaded_download_imgs(img_links, page, save_dir, stop_flag, debug, max_retries=5, retry_history=None, 
-                         link_to_idx=None, processes=8, tracking=[], existing_cds=None, existing_fnames=None):
+                         processes=8, tracking=[], existing_cds=None, existing_fnames=None):
     if retry_history is None:
         retry_history = {}
     if existing_cds is None:
@@ -343,15 +343,14 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, debug, max_retr
     if existing_fnames is None:
         existing_fnames = {}
 
-
     error_links = []
     success_count = 0
     lock = threading.Lock()
 
     def wrapped_download(link_tuple):
-        link, img_url, image_url_query = link_tuple
-        idx = link_to_idx.get(link, "?")
-        result = download_img(page, link, img_url, image_url_query, save_dir, stop_flag, debug, idx)
+        index, link, img_url, image_url_query = link_tuple
+
+        result = download_img(page, link, img_url, image_url_query, save_dir, stop_flag, debug, index)
         
         if isinstance(result, dict):
             #check for duplicates and update tracking with lock
@@ -364,9 +363,9 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, debug, max_retr
                 if not result['Same File Name']:
                     existing_fnames[f"{result['App ID']}:{result['File Name']}"] = True
                 tracking.append(result)
-            return link, img_url, image_url_query, None
+            return index, link, img_url, image_url_query, None
         else:
-            return link, img_url, image_url_query, result
+            return index, link, img_url, image_url_query, result
 
     with ThreadPoolExecutor(max_workers=processes) as executor:
         future_to_url = {
@@ -375,18 +374,18 @@ def threaded_download_imgs(img_links, page, save_dir, stop_flag, debug, max_retr
         }
 
         for future in as_completed(future_to_url):
-            link, img_url, image_url_query, result = future.result()
-            idx = link_to_idx.get(link, "?")
+            index, link, img_url, image_url_query, result = future.result()
+            
             if result is None:
                 with lock:
                     success_count += 1
-                    print(f"[Page {page}] Downloaded {idx+1} of {len(link_to_idx)} screenshots...")
+                    print(f"[Page {page}] Downloaded {index+1} of {len(img_links)} screenshots...")
             else:
                 retry_history[img_url] = retry_history.get(img_url, 0) + 1
                 if retry_history[img_url] < max_retries:
-                    error_links.append((link, img_url, image_url_query))
+                    error_links.append((index, link, img_url, image_url_query))
                 else:
-                    print(f"[image {idx+1}]\n{img_url}\n[Full url]\n{link}")
+                    print(f"[image {index+1}]\n{img_url}\n[Full url]\n{link}")
 
     return error_links, retry_history, success_count
 
@@ -478,13 +477,21 @@ class SteamDownloaderApp:
     def __init__(self, root):
         self.stop_flag = False
         self.root = root
-        root.title("Steam Screenshot Downloader V2.8.4")
+        root.title("Steam Screenshot Downloader V2.9")
 
         # Menu bar
         menubar = tk.Menu(root)
         manual_menu = tk.Menu(menubar, tearoff=0)
         manual_menu.add_command(label="Manual Download", command=self.manual_download_window)
         menubar.add_cascade(label="Manual", menu=manual_menu)
+
+        #help bar
+        help_menu = tk.Menu(menubar, tearoff=0)
+        help_menu.add_command(label="Common Questions", command=self.show_common_questions)
+        help_menu.add_command(label="About", command=self.show_about_info)
+        menubar.add_cascade(label="Help", menu=help_menu)
+
+
         root.config(menu=menubar)
 
         root.iconbitmap(resource_path("Steam&Cookies.ico"))
@@ -527,7 +534,8 @@ class SteamDownloaderApp:
         frame.grid_columnconfigure(1, minsize=15,weight=1)
         frame.grid_columnconfigure(2, weight=2)
         frame.grid_columnconfigure(3, weight=1)
-        frame.grid_columnconfigure(4, minsize=50) 
+        frame.grid_columnconfigure(4, minsize=50)
+
         frame.rowconfigure(9, weight=1)
 
         # Steam ID
@@ -537,7 +545,7 @@ class SteamDownloaderApp:
         # Save Location
         ttk.Label(frame, text="Save Location:").grid(row=1, column=1, sticky="e", pady=3, padx=(0, 5))
         ttk.Entry(frame, textvariable=self.download_dir).grid(row=1, column=2, sticky="ew", pady=3)
-        ttk.Button(frame, text="Browse", command=self.select_download_dir, width=10).grid(row=1, column=3, pady=3)
+        ttk.Button(frame, text="Browse", command=self.select_download_dir, width=10, padding=(0, 0) ).grid(row=1, column=3, sticky="w", padx=(5, 0))
 
         # App ID + Max Processes
         ttk.Label(frame, text="App ID (optional):").grid(row=3, column=1, sticky="e", pady=3, padx=(0, 5))
@@ -585,7 +593,6 @@ class SteamDownloaderApp:
         if path:
             self.download_dir.set(path)
 
-
     def start_thread(self):
         t = threading.Thread(target=self.run_downloader)
         t.start()
@@ -595,6 +602,227 @@ class SteamDownloaderApp:
         print("⛔Stop after completing the remaining tasks...")
         time.sleep(3)
         self.stop_flag = False
+    def show_common_questions(self):
+        #Common Questions window
+        win = tk.Toplevel(self.root)
+        win.title("Common Questions")
+        win.geometry("650x450")
+        win.iconbitmap(resource_path("Steam&Cookies.ico"))
+
+        text = tk.Text(win, wrap="word", font=("Segoe UI", 10), bg="#f8f8f8")
+        text.insert("1.0",
+            "📘 Common Questions:\n\n"
+            "1. How to Use?\n"
+            "   →1. After clicking Download, log in to Steam in the Chromium window that appears the first time.\n"
+            "     2. Once the download is complete, you can check the Tracking Report.\n"
+            "     3. Any failed links can be copied directly into Manual Download.\n\n"
+
+            "2. Why can't it download (the browser flashes briefly)?\n"
+            "   → The tool relies on your local Chromium installation. Try placing the program on the C: drive(e.g., Desktop).\n\n"
+
+            "3. Why log in to Steam in Chromium?\n"
+            "   → Downloading your private screenshots requires Steam cookies, and using the browser helps avoid manually entering long strings.\n\n"
+
+            "4. How to use manual download?\n"
+            "   → Click 'Manual' → 'Manual Download', paste screenshot links, then press 'Download'.\n\n"
+
+            "5. Where are downloaded screenshots saved?\n"
+            "   → Default path: ./Download_Screenshot folder.\n\n"
+            "For a detailed user guide, please visit the GitHub page.\n"
+            "https://github.com/notcookies/Steam-Screenshot-downloader.\n\n"
+
+        )
+        text.config(state="disabled")  # 只读
+        text.pack(expand=True, fill="both", padx=10, pady=10)
+
+
+    def show_about_info(self):
+        # About window
+        win = tk.Toplevel(self.root)
+        win.title("About Steam Screenshot Downloader")
+        win.geometry("400x250")
+        win.iconbitmap(resource_path("Steam&Cookies.ico"))
+
+        tk.Label(
+            win,
+            text="Steam Screenshot Downloader\nVersion 2.9",
+            font=("Segoe UI", 12, "bold")
+        ).pack(pady=10)
+
+        tk.Label(
+            win,
+            text=
+            "A lightweight GUI tool for downloading\n"
+            "your uploaded or favorited\n"
+            "Public/Private Steam Screenshots/Artworks\n"
+            "or content shared by users.",
+            font=("Segoe UI", 10),
+            justify="center"
+        ).pack(pady=10)
+
+        link = tk.Label(
+            win,
+            text="GitHub Repository",
+            font=("Segoe UI", 10, "underline"),
+            fg="blue",
+            cursor="hand2"
+        )
+        link.pack(pady=10)
+
+        # open github link
+        def open_github(event):
+            import webbrowser
+            webbrowser.open("https://github.com/notcookies/Steam-Screenshot-downloader")
+
+        link.bind("<Button-1>", open_github)
+
+        tk.Label(win, text="© 2025 Notcookies. All rights reserved.", font=("Segoe UI", 8)).pack(side="bottom", pady=10)
+
+    def tracking_report(self, tracking, download_dir):
+            
+        tracking_df = pd.DataFrame(tracking)
+
+        #create excel report
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        excel_file = os.path.join(download_dir, f"Tracking_Report_{timestamp}.xlsx")
+
+        with pd.ExcelWriter(excel_file, engine='openpyxl') as writer:
+            # mian tracking data              
+            # app id as int
+            # sort by page and index
+            tracking_df = tracking_df.sort_values(['Page', 'Index']).reset_index(drop=True)
+            tracking_df['Index'] = tracking_df.groupby('Page').cumcount() + 1
+
+            tracking_df.to_excel(writer, sheet_name='Tracking_Data', index=False)
+            
+            #statistics summary
+            summary_data = {
+                'Category': [
+                    'Total Records:',
+                    'Successful img_link Parsing:', 
+                    'Missing Content-Disposition:',
+                    'Duplicate Content-Disposition:',
+                    'File Write Success:',
+                    'Duplicate Filename Count:'
+                ],
+                'Count': [
+                    len(tracking_df),
+                    tracking_df['Image Link Success'].sum(),
+                    tracking_df['Missing Content Disposition'].sum(),
+                    tracking_df['Same Content Disposition'].sum(),
+                    tracking_df['File Written'].sum(),
+                    tracking_df['Same File Name'].sum()
+                ]
+            }
+            summary_df = pd.DataFrame(summary_data)
+            summary_df.to_excel(writer, sheet_name='Summary', index=False)
+            
+            # App stats
+            app_stats = tracking_df[tracking_df['File Written'] == True].groupby('App ID').agg({
+                'File Name': 'count',
+                'Missing Content Disposition': 'sum',
+                'Same File Name': 'sum'
+            }).rename(columns={'File Name': 'Screenshots Cont',})
+            app_stats.to_excel(writer, sheet_name='App_Stats')
+            
+            #Error report
+            issues_df = tracking_df[
+                (tracking_df['Image Link Success'] == False) | 
+                (tracking_df['Missing Content Disposition'] == True) | 
+                (tracking_df['Same Content Disposition'] == True) | 
+                (tracking_df['Same File Name'] == True) | 
+                (tracking_df['File Written'] == False)
+            ][['Page', 'Index', 'App ID', 'File Name', 'Image Link', 
+            'Image Link Success', 'Missing Content Disposition', 'Same Content Disposition', 'Same File Name', 'File Written']]
+            issues_df.to_excel(writer, sheet_name='Issues', index=False)
+            
+            #report duplicate img_links
+            duplicates = tracking_df[tracking_df.duplicated('Image Link', keep=False)]
+            if not duplicates.empty:
+                duplicates[['Page', 'Index', 'App ID', 'Image Link']].to_excel(
+                    writer, sheet_name='Duplicate_img_links', index=False)
+            
+            # check actual files on disk for those marked as written
+            missing_files = []
+            for _, row in tracking_df.iterrows():
+                if row['File Written'] == True:
+                    path = os.path.join(download_dir, row['App ID'], "screenshots", row['File Name'])
+                    actual_exists = os.path.exists(path) and os.path.getsize(path) > 0
+                    if not actual_exists:
+                        missing_files.append({
+                            'Page': row['Page'], 
+                            'Index': row['Index'], 
+                            'App ID': row['App ID'], 
+                            'File Name': row['File Name'],
+                            'Expected Path': path,
+                            'Image Link': row['Image Link']
+                        })
+            
+            if missing_files:
+                missing_df = pd.DataFrame(missing_files)
+                missing_df.to_excel(writer, sheet_name='Missing_Files', index=False)
+            
+        workbook = writer.book
+
+        def auto_fit_columns(worksheet):
+            for column in worksheet.columns:
+                max_length = 0
+                column_letter = column[0].column_letter
+                for cell in column:
+                    try:
+                        if cell.value:
+                            max_length = max(max_length, len(str(cell.value)))
+                    except:
+                        pass
+                width = min(max_length + 2, 50)
+                worksheet.column_dimensions[column_letter].width = max(width, 12)
+
+        #apply auto fit to all sheets
+        for sheet_name in workbook.sheetnames:
+            auto_fit_columns(workbook[sheet_name])
+
+        workbook.save(excel_file)
+                
+        #all tracking report done
+        print(f"\n✅all tracking report done: {excel_file}")
+
+        # format Excel
+        workbook = writer.book
+        worksheet = workbook['Tracking_Data']
+        from openpyxl.styles import Font, PatternFill, Alignment
+
+        # format header
+        header_font = Font(bold=True, color="FFFFFF")
+        header_fill = PatternFill(start_color="366092", end_color="366092", fill_type="solid")
+
+        for cell in worksheet[1]:
+            cell.font = header_font
+            cell.fill = header_fill
+            cell.alignment = Alignment(horizontal="center", vertical="center")
+
+        # auto-adjust column widths
+        for column in worksheet.columns:
+            max_length = 0
+            column_letter = column[0].column_letter
+            for cell in column:
+                try:
+                    if len(str(cell.value)) > max_length:
+                        max_length = len(str(cell.value))
+                except:
+                    pass
+            adjusted_width = min(max_length + 2, 50)
+            worksheet.column_dimensions[column_letter].width = adjusted_width
+
+        workbook.save(excel_file)
+
+        #Total records, successful img_links, file writes, issues, missing files, app stats
+        print(f"Total records: {len(tracking_df)}")
+        print(f"Successful image links: {tracking_df['Image Link Success'].sum()}")
+        print(f"File writes: {tracking_df['File Written'].sum()}")
+        print(f"Error image info: {len(issues_df)}")
+        if missing_files:
+            print(f"Missing files: {len(missing_files)}")
+        print(f"App count: {len(app_stats)}")
 
     def run_downloader(self):
         steam_id = self.steam_id.get().strip()
@@ -652,7 +880,7 @@ class SteamDownloaderApp:
                     return
                 
             #from links get img_links with original index
-            img_links, original_indices = fetch_img_urls_concurrently_requests(
+            img_links = fetch_img_urls_concurrently_requests(
                 indexed_links, cookies, page, processes, max_retries=3
             )
             
@@ -661,13 +889,13 @@ class SteamDownloaderApp:
                 
             successful_downloads = 0
             retry_links = img_links
-            retry_indices = original_indices[:]
+            #retry_indices = original_indices[:]
             retry_history = {}
             max_retries = 4
             attempt = 0
 
             #link_to_idx = {link: idx for idx, link in enumerate(indexed_links)}
-            link_to_idx = {link: index for index, link in indexed_links}
+            #link_to_idx = {link: index for index, link in indexed_links}
 
             while retry_links and attempt < max_retries:
                 attempt += 1
@@ -681,169 +909,23 @@ class SteamDownloaderApp:
                 # original_indices
                 retry_links, retry_history, new_success = threaded_download_imgs(
                     retry_links, page, download_dir, self.stop_flag, self.debug.get(), 
-                    max_retries, retry_history, link_to_idx=link_to_idx, 
-                    processes=processes, tracking=tracking
+                    max_retries, retry_history, processes=processes, tracking=tracking
                 )
                 successful_downloads += new_success
 
             print(f"\n[Page {page}] ✅ Page download completed. Total downloaded: {successful_downloads}.\n")
         
+
         driver.quit()
         print("✅ All downloads completed.")
 
         # add tracking info and check duplicates
         # generate excel report
         if tracking:
-            tracking_df = pd.DataFrame(tracking)
-            
-            #create excel report
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            excel_file = os.path.join(download_dir, f"Tracking_Report_{timestamp}.xlsx")
-            
-            with pd.ExcelWriter(excel_file, engine='openpyxl') as writer:
-                # mian tracking data              
-                # app id as int
-                # sort by page and index
-                tracking_df = tracking_df.sort_values(['Page', 'Index']).reset_index(drop=True)
-                tracking_df['Index'] = tracking_df.groupby('Page').cumcount() + 1
-
-                tracking_df.to_excel(writer, sheet_name='Tracking_Data', index=False)
-                
-                #statistics summary
-                summary_data = {
-                    'Category': [
-                        'Total Records:',
-                        'Successful img_link Parsing:', 
-                        'Missing Content-Disposition:',
-                        'Duplicate Content-Disposition:',
-                        'File Write Success:',
-                        'Duplicate Filename Count:'
-                    ],
-                    'Count': [
-                        len(tracking_df),
-                        tracking_df['Image Link Success'].sum(),
-                        tracking_df['Missing Content Disposition'].sum(),
-                        tracking_df['Same Content Disposition'].sum(),
-                        tracking_df['File Written'].sum(),
-                        tracking_df['Same File Name'].sum()
-                    ]
-                }
-                summary_df = pd.DataFrame(summary_data)
-                summary_df.to_excel(writer, sheet_name='Summary', index=False)
-                
-                # App stats
-                app_stats = tracking_df[tracking_df['File Written'] == True].groupby('App ID').agg({
-                    'File Name': 'count',
-                    'Missing Content Disposition': 'sum',
-                    'Same File Name': 'sum'
-                }).rename(columns={'File Name': 'Screenshots Cont',})
-                app_stats.to_excel(writer, sheet_name='App_Stats')
-                
-                #Error report
-                issues_df = tracking_df[
-                    (tracking_df['Image Link Success'] == False) | 
-                    (tracking_df['Missing Content Disposition'] == True) | 
-                    (tracking_df['Same Content Disposition'] == True) | 
-                    (tracking_df['Same File Name'] == True) | 
-                    (tracking_df['File Written'] == False)
-                ][['Page', 'Index', 'App ID', 'File Name', 'Image Link', 
-                'Image Link Success', 'Missing Content Disposition', 'Same Content Disposition', 'Same File Name', 'File Written']]
-                issues_df.to_excel(writer, sheet_name='Issues', index=False)
-                
-                #report duplicate img_links
-                duplicates = tracking_df[tracking_df.duplicated('Image Link', keep=False)]
-                if not duplicates.empty:
-                    duplicates[['Page', 'Index', 'App ID', 'Image Link']].to_excel(
-                        writer, sheet_name='Duplicate_img_links', index=False)
-                
-                # check actual files on disk for those marked as written
-                missing_files = []
-                for _, row in tracking_df.iterrows():
-                    if row['File Written'] == True:
-                        path = os.path.join(download_dir, row['App ID'], "screenshots", row['File Name'])
-                        actual_exists = os.path.exists(path) and os.path.getsize(path) > 0
-                        if not actual_exists:
-                            missing_files.append({
-                                'Page': row['Page'], 
-                                'Index': row['Index'], 
-                                'App ID': row['App ID'], 
-                                'File Name': row['File Name'],
-                                'Expected Path': path,
-                                'Image Link': row['Image Link']
-                            })
-                
-                if missing_files:
-                    missing_df = pd.DataFrame(missing_files)
-                    missing_df.to_excel(writer, sheet_name='Missing_Files', index=False)
-                
-            workbook = writer.book
-
-            def auto_fit_columns(worksheet):
-                for column in worksheet.columns:
-                    max_length = 0
-                    column_letter = column[0].column_letter
-                    for cell in column:
-                        try:
-                            if cell.value:
-                                max_length = max(max_length, len(str(cell.value)))
-                        except:
-                            pass
-                    width = min(max_length + 2, 50)
-                    worksheet.column_dimensions[column_letter].width = max(width, 12)
-
-            #apply auto fit to all sheets
-            for sheet_name in workbook.sheetnames:
-                auto_fit_columns(workbook[sheet_name])
-
-            workbook.save(excel_file)
-
-
-
-                           
-            #all tracking report done
-            print(f"\n✅all tracking report done: {excel_file}")
-            
-            # format Excel
-            workbook = writer.book
-            worksheet = workbook['Tracking_Data']
-            from openpyxl.styles import Font, PatternFill, Alignment
-            
-            # format header
-            header_font = Font(bold=True, color="FFFFFF")
-            header_fill = PatternFill(start_color="366092", end_color="366092", fill_type="solid")
-            
-            for cell in worksheet[1]:
-                cell.font = header_font
-                cell.fill = header_fill
-                cell.alignment = Alignment(horizontal="center", vertical="center")
-            
-            # auto-adjust column widths
-            for column in worksheet.columns:
-                max_length = 0
-                column_letter = column[0].column_letter
-                for cell in column:
-                    try:
-                        if len(str(cell.value)) > max_length:
-                            max_length = len(str(cell.value))
-                    except:
-                        pass
-                adjusted_width = min(max_length + 2, 50)
-                worksheet.column_dimensions[column_letter].width = adjusted_width
-            
-            workbook.save(excel_file)
-            
-            #Total records, successful img_links, file writes, issues, missing files, app stats
-            print(f"Total records: {len(tracking_df)}")
-            print(f"Successful image links: {tracking_df['Image Link Success'].sum()}")
-            print(f"File writes: {tracking_df['File Written'].sum()}")
-            print(f"Error: {len(issues_df)}")
-            if missing_files:
-                print(f"Missing files: {len(missing_files)}")
-            print(f"App count: {len(app_stats)}")
-            
+            self.tracking_report(tracking, download_dir)
         else:
-            #no tracking data 
-            print("\nno tracking data generated.")
+            print("No tracking data generated.")
+
 
         set_all_creation_times(download_dir)
         print("✅ Creation time update completed.")
@@ -859,73 +941,143 @@ class SteamDownloaderApp:
         print("✅ Thumbnails generation completed.")
         print("✅ All Done.")
 
+
     def manual_download_window(self):
         win = tk.Toplevel(self.root)
-        win.title("Manual Screenshot Download")
-        win.geometry("600x300")
+        win.title("Manual Screenshot Link Download")
+        win.geometry("600x600")
+        win.iconbitmap(resource_path("Steam&Cookies.ico"))
 
         win.rowconfigure(1, weight=1)
         win.columnconfigure(0, weight=1)
 
-        tk.Label(win, text="Enter one or more Screenshot Links (one per line):").grid(row=0, column=0, pady=5)
+        # Placeholder content
+        placeholder = (
+            "Enter Steam Screenshot Links, such as:\n"
+            "https://steamcommunity.com/sharedfiles/filedetails/?id=1346814516\n"
+            "https://steamcommunity.com/sharedfiles/filedetails/?id=1376701612\n"
+            "https://steamcommunity.com/sharedfiles/filedetails/?id=1376701717\n"
+            "https://steamcommunity.com/sharedfiles/filedetails/?id=2837849631\n"
+            "https://steamcommunity.com/sharedfiles/filedetails/?id=2837849646\n"
+            "https://steamcommunity.com/sharedfiles/filedetails/?id=2837849692\n"
+            "https://steamcommunity.com/sharedfiles/filedetails/?id=2837849756\n"
+            "https://steamcommunity.com/sharedfiles/filedetails/?id=2837849767\n"
+            "......\n"
+        )
 
-        text_box = tk.Text(win, wrap="word", font=("Consolas", 10))
+        # Text box with placeholder
+        text_box = tk.Text(win, wrap="word", font=("Consolas", 10), height=10, fg="gray")
+        text_box.insert("1.0", placeholder)
         text_box.grid(row=1, column=0, sticky="nsew", padx=10, pady=5)
 
+        # Focus in to clear placeholder
+        def on_focus_in(event):
+            if text_box.get("1.0", "end-1c") == placeholder:
+                text_box.delete("1.0", "end")
+                text_box.config(fg="black")
 
-        ttk.Button(win, text="Download",
-                command=lambda: self.manual_download(text_box.get("1.0", tk.END))
-                ).grid(row=2, column=0, pady=10)
+        # Focus out to restore placeholder if empty
+        def on_focus_out(event):
+            if not text_box.get("1.0", "end-1c").strip():
+                text_box.insert("1.0", placeholder)
+                text_box.config(fg="gray")
+
+        text_box.bind("<FocusIn>", on_focus_in)
+        text_box.bind("<FocusOut>", on_focus_out)
+
+        #  start a new thread to download for avoid blocking GUI
+        def start_manual_download():
+            links_text = text_box.get("1.0", tk.END)
+            # avoid empty or placeholder input
+            if links_text.strip() == placeholder.strip() or not links_text.strip():
+                print("⚠️ Please enter at least one valid screenshot link.")
+                return
+            threading.Thread(
+                target=self.manual_download,
+                args=(links_text,),
+                daemon=True
+            ).start()
+
+        ttk.Button(win, text="Download", command=start_manual_download).grid(row=2, column=0, pady=10)
 
 
     def manual_download(self, links_text):
-
+        # Clean and split links from text box
         links = [l.strip() for l in links_text.strip().splitlines() if l.strip()]
-
         if not links:
-            print("❌ Please enter at least one valid screenshot link.")
+            print("❌ Please enter Steam screenshot link.")
             return
+        
+        # Validate link format
+        valid_links = [l for l in links if l.startswith("https://steamcommunity.com/sharedfiles/filedetails/")]
+        if not valid_links:
+            print("❌ No Steam screenshot links found.eg., https://steamcommunity.com/sharedfiles/filedetails/?id=......")
+            return
+        
+        tracking = []
 
+        page = 0
         save_dir = os.path.join(self.download_dir.get(), "Manual")
-        if not os.path.exists(save_dir):
-            os.makedirs(save_dir, exist_ok=True)
+        os.makedirs(save_dir, exist_ok=True)
 
-        print(f"🔗 Manual mode: downloading {len(links)} screenshot(s)...")
+        debug = self.debug.get()
+        stop_flag = self.stop_flag
+        processes = int(self.processes.get() or 8)
+
+        print(f"Manual mode: downloading {len(valid_links)} screenshots...")
 
         driver = ChromiumPage()
-
+        print("Fetch cookies from Steam Community....")
         driver.get("https://steamcommunity.com/")
+        
+        cookies = extract_steam_cookies_from_driver(driver, retries=3, delay=2)
+        if not all(k in cookies for k in ["steamLoginSecure", "sessionid"]):
+            print("❌ Missing required cookies from Chrome session.")
+            print("Please ensure you\'re logged into Steam in Chrome.")
+            print("Chrome will Close in 5 minutes.....")
+            time.sleep(300)
+            driver.quit()
+            return
+        
+        indexed_links = list(enumerate(valid_links))
+        
+        img_links = fetch_img_urls_concurrently_requests(
+            indexed_links, cookies, page, processes=processes, max_retries=3
+        )
 
-        cookies = extract_steam_cookies_from_driver(driver)
-        # try get cookies
-        if cookies is None:
-            print("Extracting Steam cookies from Chrome session...")
-            cookies = extract_steam_cookies_from_driver(driver, retries=3, delay=2)
-            if not all(k in cookies for k in ["steamLoginSecure", "sessionid"]):
-                print("❌ Missing required cookies from Chrome session.")
-                print("Please ensure you\'re logged into Steam in Chrome.")
-                print("Chrome will Close in 5 minutes.....")
-                time.sleep(300)
-                driver.quit()
-                return            
-
-        for idx, link in enumerate(links):
-            print(f"({idx+1}/{len(links)}) Fetching image link from {link} ...")
-            result = get_img_url_from_html(link, cookies)
-            if not result:
-                print(f"❌ Failed to fetch image URL for {link}")
-                continue
-
-            img_url, image_url_query = result
-            page = 0
-            debug = self.debug.get()
-            stop_flag = self.stop_flag
-
-            download_img(page, link, img_url, image_url_query, save_dir, stop_flag, debug, idx)
+        if not img_links:
+            print(f"❌ Failed to fetch image URLs for {valid_links}. Skipping...")
+            driver.quit()
+            return
+        
+        
+        threaded_download_imgs(
+            img_links, page, save_dir, stop_flag, debug, max_retries=5, 
+            retry_history=None, processes=processes, 
+            existing_cds=None, existing_fnames=None,tracking=tracking
+        )
 
         driver.quit()
-
         print("✅ All manual downloads completed.\n")
+        if tracking:
+            self.tracking_report(tracking, save_dir)
+        else:
+            print("No tracking data generated.")
+
+        set_all_creation_times(save_dir)
+        print("✅ Creation time update completed.")
+
+        for appid in os.listdir(save_dir):
+            if appid == "Artwork":
+                print("Skipping thumbnails for Artwork.")
+            else:
+                app_screenshot_dir = os.path.join(save_dir, appid, "screenshots")
+                app_thumbnail_dir = os.path.join(app_screenshot_dir, "thumbnails")
+                if os.path.isdir(app_screenshot_dir):
+                    generate_thumbnails(app_screenshot_dir, app_thumbnail_dir)
+        print("✅ Thumbnails generation completed.")
+        print("✅ All Done.")
+
 
 
 # Run GUI
