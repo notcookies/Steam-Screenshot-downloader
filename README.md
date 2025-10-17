@@ -10,20 +10,12 @@
 <img width="1852" height="1248" alt="image" src="https://github.com/user-attachments/assets/faccba91-3946-4bd1-9fa5-c79eb3b51cd4" />
 
 
-For SteamOS
+#  Video v2.9
+https://youtu.be/0WJbpMG1QcA
 
-<img width="1280" height="800" alt="Image" src="https://github.com/user-attachments/assets/66869966-237e-463b-b9b2-ab5506b95199" />
 
-For Linux(Ubuntu)
+## *The following stuff needs an update. Check out the video to see how to use it.⬆️⬆️⬆️
 
-<img width="1920" height="1080" alt="w3AoGRo9TA" src="https://github.com/user-attachments/assets/536abaa1-bdbf-413e-855a-abb2e2832774" />
-
-#  Video base_v2.5
-https://youtu.be/1G6fnU91s2w
-### Video base_v2.3
-https://youtu.be/9wv2S5nMiGk
-
-https://www.bilibili.com/video/BV1bE3rzrEjY/
 
 # User Guide
 
