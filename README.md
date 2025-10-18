@@ -7,22 +7,15 @@
 # Steam Screenshot Downloader
 <img width="130" height="135" alt="image" src="https://github.com/user-attachments/assets/2a63c467-2022-4b7d-a83d-f6ea787ee946" />
 
-<img width="898" height="830" alt="7nsTBBKJpv" src="https://github.com/user-attachments/assets/e257e1e5-347e-42c5-a492-2054216bd824" />
+<img width="1852" height="1248" alt="image" src="https://github.com/user-attachments/assets/faccba91-3946-4bd1-9fa5-c79eb3b51cd4" />
 
-For SteamOS
 
-<img width="1280" height="800" alt="Image" src="https://github.com/user-attachments/assets/66869966-237e-463b-b9b2-ab5506b95199" />
+#  Video v2.9
+https://youtu.be/0WJbpMG1QcA
 
-For Linux(Ubuntu)
 
-<img width="1920" height="1080" alt="w3AoGRo9TA" src="https://github.com/user-attachments/assets/536abaa1-bdbf-413e-855a-abb2e2832774" />
+## *The following stuff needs an update. Check out the video to see how to use it.⬆️⬆️⬆️
 
-#  Video base_v2.5
-https://youtu.be/1G6fnU91s2w
-### Video base_v2.3
-https://youtu.be/9wv2S5nMiGk
-
-https://www.bilibili.com/video/BV1bE3rzrEjY/
 
 # User Guide
 
