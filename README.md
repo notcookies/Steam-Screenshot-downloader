@@ -10,8 +10,16 @@
 <img width="1852" height="1248" alt="image" src="https://github.com/user-attachments/assets/faccba91-3946-4bd1-9fa5-c79eb3b51cd4" />
 
 
-#  Video v2.9
-https://youtu.be/0WJbpMG1QcA
+#  Walkthrough video v2.9:
+
+#### for windows:
+#### https://youtu.be/0WJbpMG1QcA
+
+#### for Linux:
+#### https://youtu.be/BHZo82LMW28
+
+#### for SteamOS:
+#### https://youtu.be/MILDMs-jR7w
 
 
 ## *The following stuff needs an update. Check out the video to see how to use it.⬆️⬆️⬆️
