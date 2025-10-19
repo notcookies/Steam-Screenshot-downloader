@@ -102,6 +102,7 @@ def init_chrome(user_data_path=None):
 
     return webdriver.Firefox(service = service, options=options)
 
+
 # Get screenshot links
 def get_screenshot_links(driver, steam_id, page, appid=None, screenshot=True, favorite=False, custom_url=True):
     if custom_url:
@@ -1114,9 +1115,8 @@ class SteamDownloaderApp:
         print(f"Manual mode: downloading {len(valid_links)} screenshots...")
 
         chrome_dir = os.path.normpath(self.chrome_dir.get().strip())
-        firefox_path = self.firefox_path.get().strip()
 
-        driver = init_chrome(chrome_dir, firefox_path=firefox_path)
+        driver = init_chrome(chrome_dir)
         print("Fetch cookies from Steam Community....")
         driver.get("https://steamcommunity.com/")
         
