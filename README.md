@@ -22,7 +22,9 @@
 #### https://youtu.be/MILDMs-jR7w
 
 ## Two special cases:
-- **```Missing required cookies from Chromium session```. Refer to this typical case: [Issue #11](https://github.com/notcookies/Steam_Screenshot_Downloader/issues/11) "I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded."**
+- **```Missing required cookies from Chromium session```.
+  Refer to this typical case: [Issue #11](https://github.com/notcookies/Steam-Screenshot-downloader/issues/11)
+"I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded."**
 
 - **```UU```+```SteamScreenshotDownloader```: [Issue #4](https://github.com/notcookies/Steam-Screenshot-downloader/issues/4)**
 
