@@ -64,7 +64,7 @@ Huge thanks to the following supporters! (Listed by date)
 
 ## How it works?
 
-![alt text](<Untitled diagram-2025-11-04-082418.png>)
+![alt text](<Processing Flowchart.png>)
 
 
 #### *The following stuff(User Guide) needs an update. Check out the video to see how to use it.⬆️⬆️⬆️
