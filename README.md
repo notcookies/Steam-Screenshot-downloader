@@ -48,8 +48,6 @@ This software uses the latter format by default, so you may need to customize yo
 3. For extra peace of mind, **change your Steam password after downloading**.
 
 
-
-
 # License
 
 This project is licensed under the GNU General Public License v3.0.  
@@ -78,9 +76,7 @@ Huge thanks to the following supporters! (Listed by date)
 
 
 
-如果是UU加速器，选**路由模式**
-
-![c1f87dc7c0abd5677ad5894b995a06b](https://github.com/user-attachments/assets/7939cc37-ad17-4b82-9d11-3e57cce70c69)
+# 如果是UU加速器，选**路由模式**
 
 ![e814547f02950d3bdad1a3f93e2a6ea](https://github.com/user-attachments/assets/8da9b34a-5dc6-4e4a-a652-350a299b7165)
 
