@@ -1,15 +1,15 @@
+# <img width="50" align="center" alt="image" src="https://github.com/user-attachments/assets/2a63c467-2022-4b7d-a83d-f6ea787ee946" /> Steam Screenshot Downloader 
+
 | Release Information & Download Count. | ❤️ Sponsor —— I'd love a $1 coffee if you feel like it.☕~~ |
 |----------------------------------|--------------------------------|
 | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/notcookies/Steam-Screenshot-downloader)](https://github.com/notcookies/Steam-Screenshot-downloader/releases)<br>[![GitHub All Releases](https://img.shields.io/github/downloads/notcookies/Steam-Screenshot-downloader/total.svg)](https://github.com/notcookies/Steam-Screenshot-downloader/releases) | [![PayPal](https://img.shields.io/badge/PayPal-0070ba?logo=paypal&logoColor=white&style=flat)](https://paypal.me/dongyunboshi)<br>[<img src="assets/Alipay.jpg" alt="Alipay" width="15"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/Alipay.jpg) [<img src="assets/WeChat_Pay.jpg" alt="WeChat" width="15"/>](https://github.com/notcookies/Steam-Screenshot-downloader/blob/main/assets/WeChat_Pay.jpg) |
 
 
-# Steam Screenshot Downloader
-<img width="130" height="135" alt="image" src="https://github.com/user-attachments/assets/2a63c467-2022-4b7d-a83d-f6ea787ee946" />
-
 <img width="1852" height="1248" alt="image" src="https://github.com/user-attachments/assets/faccba91-3946-4bd1-9fa5-c79eb3b51cd4" />
 
+## How to use it?
 
-#  Walkthrough video v2.9:
+###  Walkthrough video v2.9:
 
 #### for windows:
 #### https://youtu.be/0WJbpMG1QcA
@@ -21,32 +21,26 @@
 #### for SteamOS:
 #### https://youtu.be/MILDMs-jR7w
 
+## Two special cases:
+- **```Missing required cookies from Chromium session```. Refer to this typical case: [Issue #11](https://github.com/notcookies/Steam_Screenshot_Downloader/issues/11) "I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded."**
 
-## *The following stuff needs an update. Check out the video to see how to use it.⬆️⬆️⬆️
+- **```UU```+```SteamScreenshotDownloader```: [Issue #4](https://github.com/notcookies/Steam-Screenshot-downloader/issues/4)**
 
-# User Guide
+## Disclaimer:
 
-- **For Windows users: [How to use it.md](How%20to%20use%20it.md)** 
-- **For SteamOS users: [How to use it in SteamOS.md](How%20to%20use%20it%20in%20SteamOS.md)** 
+**This tool uses**
 
-# Two special cases
-1. Missing required cookies from Chrome session. Refer to this typical case: [Issue #11](https://github.com/notcookies/Steam_Screenshot_Downloader/issues/11) "I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded."
+**```from DrissionPage import ChromiumPage, ChromiumOptions```**
 
-2. UU+SteamScreenshotDownloader: [Issue #4](https://github.com/notcookies/Steam-Screenshot-downloader/issues/4)
+**to launch the built-in ```Chromium``` engine from ```your local browser```.
+When you log in to Steam by scanning the QR code, all your ```cookies``` are saved in a temporary Chromium user profile created by ```DrissionPage```.**
 
+**After you're done, you can just delete that local user profile.
+It's usually located somewhere like:**
 
-# Disclaimer
+**```%TEMP%\DrissionPage\userData\xxxx```**
 
-This tool uses
-```from DrissionPage import ChromiumPage, ChromiumOptions```
-to launch the built-in ```Chromium``` engine from your local browser.
-When you log in to Steam by scanning the QR code, all your ```cookies``` are saved in a temporary Chromium user profile created by ```DrissionPage```.
-
-After you're done, you can just delete that local user profile.
-It's usually located somewhere like:
-```%TEMP%\DrissionPage\userData\xxxx```
-
-For extra safety, you can also remove this browser's authorization from the ```Steam mobile app```.
+**For extra safety, you can also ```remove``` this browser's authorization from the ```Steam mobile app```.**
 
 
 <!-- ## Special Thanks
@@ -56,7 +50,7 @@ Huge thanks to the following supporters! (Listed by date)
 |-------------|----------------|-------------|
 | **Myself**   | Keep it up! ☕  | 2025-07-11  | -->
 
-## User Reviews
+## Reviews:
 
 | # | User Review |
 |--|-------------|
@@ -68,12 +62,20 @@ Huge thanks to the following supporters! (Listed by date)
 | 6 | I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded. |
 | 7 | ....（Looking forward to your use and feedback.） |
 
-# How it works?
+## How it works?
 
 ![alt text](<Untitled diagram-2025-11-04-082418.png>)
 
 
-# License
+#### *The following stuff(User Guide) needs an update. Check out the video to see how to use it.⬆️⬆️⬆️
+
+## Guide:
+
+- **For Windows users: [How to use it.md](How%20to%20use%20it.md)** 
+- **For SteamOS users: [How to use it in SteamOS.md](How%20to%20use%20it%20in%20SteamOS.md)**
+
+
+## License
 
 This project is licensed under the GNU General Public License v3.0.  
 See the [LICENSE](./LICENSE) file for details.
