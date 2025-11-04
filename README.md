@@ -14,6 +14,7 @@
 
 #### for windows:
 #### https://youtu.be/0WJbpMG1QcA
+#### https://www.bilibili.com/video/BV1h5WkzjE9q/
 
 #### for Linux:
 #### https://youtu.be/BHZo82LMW28
@@ -31,27 +32,10 @@
 - **For SteamOS users: [How to use it in SteamOS.md](How%20to%20use%20it%20in%20SteamOS.md)** 
 
 # The common scenarios:
+1. Missing required cookies from Chrome session. Refer to this typical case:[Issue #11](https://github.com/notcookies/Steam_Screenshot_Downloader/issues/11) "I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded."
 
-1. Unable to locate the Steam profile.If you haven't customized your Steam profile URL, your profile and screenshot pages will start with https://steamcommunity.com/your_steam_ID. However, if you've customized your URL, the prefix will include /id/, such as https://steamcommunity.com/id/lgsgdsb233/.
-This software uses the latter format by default, so you may need to customize your URL accordingly.
+2.UU [Issue #4](https://github.com/notcookies/Steam-Screenshot-downloader/issues/4)
 
-2. The popped-up Chrome for Testing cannot display the grid view with 50 screenshots.In this case, you need to manually log in to Steam before using this software. After logging in, try randomly opening a few screenshot detail pages—this will also help ensure that the software can retrieve Steam cookies successfully.
-
-3. Missing required cookies from Chrome session. Refer to this typical case:[Issue #11](https://github.com/notcookies/Steam_Screenshot_Downloader/issues/11) "I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded."
-
-
-# Disclaimer:
-1. In theory, this works just like logging into Steam in Chrome.If you're worried about security, feel free to **replace the included chromedriver and Chrome for Testing in the release** with your own from official sources.
-
-2. The .exe is packed using Python tools directly from the source code — I’ve verified it.
-
-3. For extra peace of mind, **change your Steam password after downloading**.
-
-
-# License
-
-This project is licensed under the GNU General Public License v3.0.  
-See the [LICENSE](./LICENSE) file for details.
 
 
 
@@ -75,16 +59,22 @@ Huge thanks to the following supporters! (Listed by date)
 | 7 | ....（Looking forward to your use and feedback.） |
 
 
-
-# 如果是UU加速器，选**路由模式**
-
-![e814547f02950d3bdad1a3f93e2a6ea](https://github.com/user-attachments/assets/8da9b34a-5dc6-4e4a-a652-350a299b7165)
-
-
 # How it works?
 
 ![alt text](<Untitled diagram-2025-11-04-082418.png>)
 
 
+# Disclaimer:
+1. In theory, this works just like logging into Steam in Chrome.If you're worried about security, feel free to **replace the included chromedriver and Chrome for Testing in the release** with your own from official sources.
+
+2. The .exe is packed using Python tools directly from the source code — I’ve verified it.
+
+3. For extra peace of mind, **change your Steam password after downloading**.
+
+
+# License
+
+This project is licensed under the GNU General Public License v3.0.  
+See the [LICENSE](./LICENSE) file for details.
 
 
