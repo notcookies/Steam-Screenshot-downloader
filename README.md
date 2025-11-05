@@ -11,7 +11,7 @@
 
 ###  Walkthrough video v2.9:
 
-#### for windows:
+#### for Windows:
 #### https://youtu.be/0WJbpMG1QcA
 #### https://www.bilibili.com/video/BV1h5WkzjE9q/
 
