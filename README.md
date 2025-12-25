@@ -26,7 +26,7 @@
   Refer to this typical case: [Issue #11](https://github.com/notcookies/Steam-Screenshot-downloader/issues/11)
 "I used the Steam app on iOS to log out of all devices. After that, I changed my password. Then I followed the tutorial steps again, and only after that did everything work as expected - the screenshots downloaded."**
 
-- **```UU```+```SteamScreenshotDownloader```: [Issue #4](https://github.com/notcookies/Steam-Screenshot-downloader/issues/4)**
+- **```UU```+```SteamScreenshotDownloader```: [Issue #4](https://github.com/notcookies/Steam-Screenshot-downloader/issues/4), [Issue #16](https://github.com/notcookies/Steam-Screenshot-downloader/issues/16)**
 
 ## Disclaimer:
 
