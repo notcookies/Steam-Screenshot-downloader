@@ -21,6 +21,14 @@
 #### for SteamOS:
 #### https://youtu.be/MILDMs-jR7w
 
+## How to download other users' Screenshots or Artwork?
+
+- On first launch, log into your account in the Chromium window opened by the software, Chromium will save your Steam cookies.
+
+- Then change the Steam ID to another user's ID to download their content.
+
+- Any ```Screenshots``` or ```Artwork``` you can view through your Steam Community can be downloaded.
+
 ## Two special cases:
 - **```Missing required cookies from Chromium session```.
   Refer to this typical case: [Issue #11](https://github.com/notcookies/Steam-Screenshot-downloader/issues/11)
