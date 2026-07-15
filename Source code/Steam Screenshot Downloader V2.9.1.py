@@ -230,7 +230,7 @@ def extract_steam_cookies_from_driver(driver, retries=3, delay=2):
 #     return all_results
 
 #web
-def get_img_url_from_html(link, tab):
+def get_img_url_from_html(link, tab, delay1, delay2):
     try:
         print("Fetching image URL from:", link)
 
@@ -252,7 +252,10 @@ def get_img_url_from_html(link, tab):
             link_full = urlunparse(
                 urlparse(tag['href'])
             )
-            print("image URL:", link)
+            print("Result:", link)
+            delay = random.uniform(delay1, delay2)
+            print(f"Sleeping {delay:.2f} seconds...")
+            time.sleep(delay)
             return link, link_full
 
         return None
@@ -264,7 +267,9 @@ def get_img_url_from_html(link, tab):
 def fetch_img_urls_concurrently_requests(
     indexed_links,
     page,
-    max_retries=3,
+    max_retries,
+    delay1,
+    delay2
 ):
 
     total_links = len(indexed_links)
@@ -281,7 +286,9 @@ def fetch_img_urls_concurrently_requests(
 
             result = get_img_url_from_html(
                 link,
-                tab
+                tab,
+                delay1,
+                delay2
             )
 
             if result:
@@ -677,12 +684,18 @@ class SteamDownloaderApp:
         self.favorite = tk.BooleanVar(value=False)
         self.custom_url = tk.BooleanVar(value=True)
         self.debug = tk.BooleanVar(value=False)
+        self.delay1 = tk.StringVar()
+        self.delay2 = tk.StringVar()
+
+
 
         # Set default download directory
         default_download_dir = os.path.join(os.getcwd(), "Download_Screenshot")
         self.download_dir.set(default_download_dir)
-
         self.processes.set(8)
+
+        self.delay1.set(2)
+        self.delay2.set(2.1)
 
         self.make_widgets()
         sys.stdout = TextRedirector(self.text_log)
@@ -713,10 +726,10 @@ class SteamDownloaderApp:
         ttk.Label(frame, text="App ID (optional):").grid(row=3, column=1, sticky="e", pady=3, padx=(0, 5))
         idproc_frame = ttk.Frame(frame)
         idproc_frame.grid(row=3, column=2, sticky="w", pady=3, columnspan=2)
-        ttk.Entry(idproc_frame, textvariable=self.appid, width=20).pack(side="left")
+        ttk.Entry(idproc_frame, textvariable=self.appid, width=18).pack(side="left")
         ttk.Label(idproc_frame, text="(leave blank for all)", foreground="gray").pack(side="left", padx=(5, 10))
         ttk.Label(idproc_frame, text="Threads:").pack(side="left")
-        ttk.Entry(idproc_frame, textvariable=self.processes, width=10).pack(side="left", padx=(2, 0))
+        ttk.Entry(idproc_frame, textvariable=self.processes, width=4).pack(side="left", padx=(2, 0))
     
         # Start Page
         ttk.Label(frame, text="Start Page:").grid(row=4, column=1, sticky="e", pady=3, padx=(0, 5))
@@ -735,7 +748,21 @@ class SteamDownloaderApp:
         ttk.Radiobutton(type_frame, text="My Files", variable=self.favorite, value=False).pack(side="left", padx=0)
         ttk.Radiobutton(type_frame, text="My Favorite", variable=self.favorite, value=True).pack(side="left", padx=10)
 
-        ttk.Checkbutton(frame, text="Debug Mode", variable=self.debug).grid(row=3, column=2, sticky="w", padx=(460, 0))
+        #ttk.Checkbutton(frame, text="Debug Mode", variable=self.debug).grid(row=3, column=2, sticky="w", padx=(460, 0))
+        # Random Delay
+        delay_frame = ttk.Frame(frame)
+        delay_frame.grid(row=3,column=2,sticky="w",padx=(380, 0))
+
+        ttk.Label(delay_frame,text="Web Delay:").pack(side="left")
+
+        ttk.Entry(delay_frame,textvariable=self.delay1,width=3).pack(side="left", padx=(5, 2))
+
+        ttk.Label(delay_frame,text="~").pack(side="left")
+
+        ttk.Entry(delay_frame,textvariable=self.delay2,width=3).pack(side="left", padx=(2, 0))
+
+        ttk.Label(delay_frame,text="sec").pack(side="left", padx=(5, 0))
+
 
         # Browse button
         button_frame = ttk.Frame(frame)
@@ -1003,6 +1030,16 @@ class SteamDownloaderApp:
         except:
             print("Start and end pages must be integers.")
             return
+        
+        try:
+            delay1 = float(self.delay1.get())
+            delay2 = float(self.delay2.get())
+
+            if delay1 > delay2:
+                delay1, delay2 = delay2, delay1
+        except:
+            delay1 = 1.9
+            delay2 = 2
 
         if not (steam_id and download_dir):
             print("All fields are required.")
@@ -1048,8 +1085,9 @@ class SteamDownloaderApp:
                     return
                 
             #from links get img_links with original index
+            max_retries = 3
             img_links = fetch_img_urls_concurrently_requests(
-                indexed_links, page, max_retries=3
+                indexed_links, page, max_retries, delay1, delay2
             )
             
             if not img_links:
@@ -1118,6 +1156,8 @@ class SteamDownloaderApp:
 
         win.rowconfigure(1, weight=1)
         win.columnconfigure(0, weight=1)
+
+
 
         # Placeholder content
         placeholder = (
@@ -1208,9 +1248,26 @@ class SteamDownloaderApp:
             return
         
         indexed_links = list(enumerate(valid_links))
+
+        max_retries = 3
+
+        try:
+            delay1 = float(self.delay1.get())
+            delay2 = float(self.delay2.get())
+
+            if delay1 > delay2:
+                delay1, delay2 = delay2, delay1
+
+        except:
+            delay1 = 1.9
+            delay2 = 2
         
+        #2.9.1
+        global tab
+        tab = driver
+
         img_links = fetch_img_urls_concurrently_requests(
-            indexed_links, page, max_retries=3
+            indexed_links, page, max_retries, delay1, delay2
         )
 
         if not img_links:

@@ -3,3 +3,5 @@ pyinstaller --noconfirm --onefile --windowed  --icon="Steam&Cookies.ico" --add-d
 
 
 pyinstaller --noconfirm --onefile --windowed  --icon="Steam&Cookies.ico" --add-data "Steam&Cookies.ico;."  --version-file version.txt "Steam Screenshot Downloader V2.6.py"
+pyinstaller --noconfirm --onefile --windowed  --icon="Steam&Cookies.ico" --add-data "Steam&Cookies.ico;."  --version-file version.txt "Steam Screenshot Downloader V2.9.1.py"
+
